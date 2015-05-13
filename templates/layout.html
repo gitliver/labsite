@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+
+  <!-- Head --> 
+  <head>
+    {% block head %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>Rabadan Lab | {% block title %}{% endblock %}</title>
+
+    {% endblock %}
+  </head>
+
+  <!-- Body --> 
+  <body>
+
+    <!-- Header --> 
+    <div id="header">
+      {% block header %}
+      {% endblock %}
+    </div>
+
+    <!-- Content --> 
+    <div id="content">
+      {% block content %}
+      {% endblock %}
+    </div>
+
+    <!-- Footer --> 
+    <div id="footer">
+      {% block footer %}
+      &copy; 2015 The Rabadan Lab 
+      {% endblock %}
+    </div>
+
+  </body>
+
+</html>
