@@ -2,11 +2,9 @@
 
 from flask import Flask, render_template
 
-# app = Flask(__name__)
 application = Flask(__name__)
 application.debug = True
 
-# @app.route('/')
 @application.route('/')
 def index():
     return render_template('home.html')
@@ -39,11 +37,5 @@ def courses():
 def contact():
     return render_template('contact.html')
 
-# @application.route('/hello/')
-# @application.route('/hello/<name>')
-# def hello(name=None):
-#     return render_template('child.html', name=name)
-
 if __name__ == "__main__":
-    # app.run()
     application.run()
