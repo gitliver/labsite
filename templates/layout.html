@@ -15,23 +15,28 @@
   <!-- Body --> 
   <body>
 
-    <!-- Header --> 
-    <div id="header">
-      {% block header %}
-      {% endblock %}
-    </div>
+    <div id="container">
 
-    <!-- Content --> 
-    <div id="content">
-      {% block content %}
-      {% endblock %}
-    </div>
+      <!-- Header --> 
+      <div id="header">
+        {% block header %}
+        {% endblock %}
+      </div>
 
-    <!-- Footer --> 
-    <div id="footer">
-      {% block footer %}
-      &copy; 2015 The Rabadan Lab 
-      {% endblock %}
+      <!-- Content --> 
+
+      <div id="content">
+        {% block content %}
+        {% endblock %}
+      </div>
+
+      <!-- Footer --> 
+      <div id="footer">
+        {% block footer %}
+        &copy; 2015 The Rabadan Lab 
+        {% endblock %}
+      </div>
+
     </div>
 
   </body>
