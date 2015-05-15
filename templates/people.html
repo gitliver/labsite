@@ -12,7 +12,18 @@
 <!-- Content -->
 {% block content %}
 
-  <i>Welcome on my awesome homepage.</i>
+  <i>People</i>
+  <br>
+  <br>
+  {% for entry in entries %}
+    <h4>{{ entry.name }}</h4>
+    <b>{{ entry.title }}</b>
+    <br>
+    <small>{{ entry.bio|safe }}</small>
+  {% else %}
+    <em>Unbelievable.  No entries here so far</em>
+  {% endfor %}
+
   <br>
   <br>
 

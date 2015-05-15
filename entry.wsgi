@@ -68,7 +68,9 @@ def press():
 
 @application.route('/people')
 def people():
-    return render_template('people.html')
+    cur = g.db.execute('select iscurrent, name, title, bio, email, imagefile, webpage from people order by id desc')
+    entries = [dict(name=row[1], title=row[2], bio=row[3]) for row in cur.fetchall()]
+    return render_template('people.html', entries=entries)
 
 @application.route('/alumni')
 def alum():
