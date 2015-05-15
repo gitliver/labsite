@@ -1,0 +1,25 @@
+#!/usr/bin/env python
+
+import sys
+import re
+import sqlite3
+
+# Make database schema
+# Loosely following the tutorial here: http://docs.python.org/2/library/sqlite3.html
+
+# assume:
+# arg 1 = sqlite3 db
+# arg 2 = schema file, schema.sql
+
+conn = sqlite3.connect(sys.argv[1])
+c = conn.cursor()
+
+with open(sys.argv[2], "r") as f:
+    c.executescript(f.read())
+
+# Save (commit) the changes
+conn.commit()
+
+# We can also close the connection if we are done with it.
+# Just be sure any changes have been committed or they will be lost.
+conn.close()

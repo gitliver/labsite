@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# make links in static folder
+
+for i in static/*; do j=$( basename $i ); echo $j; ln -s ../wsgi/static/${j} ../../html/; done

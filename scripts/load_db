@@ -1,0 +1,82 @@
+#!/usr/bin/env python
+
+import sys
+import re
+import sqlite3
+
+# About: Into an sqlite3 db, load data from a text file in the format:
+# image.jpg
+# bio ...
+# name
+# status:1
+# title:Postdoc
+# email
+# webpage
+
+# Following the tutorial here: http://docs.python.org/2/library/sqlite3.html
+
+conn = sqlite3.connect(sys.argv[1])
+# http://stackoverflow.com/questions/3425320/sqlite3-programmingerror-you-must-not-use-8-bit-bytestrings-unless-you-use-a-te
+conn.text_factory = str
+c = conn.cursor()
+
+# Larger example that inserts many records at a time
+#purchases = [('2006-03-28', 'BUY', 'IBM', 1000, 45.00),
+#             ('2006-04-05', 'BUY', 'MSFT', 1000, 72.00),
+#             ('2006-04-06', 'SELL', 'IBM', 500, 53.00),
+#            ]
+#c.executemany('INSERT INTO stocks VALUES (?,?,?,?,?)', purchases)
+
+l=[]                # list of tuples
+counter = 1         # counter 
+linelist = ['1']    # the first line-list
+
+with open(sys.argv[2], "r") as f:
+	for line in f:
+		# skip comment lines
+		if (not re.search(r'^#(.*)', line)):
+			# if line not empty
+			if (line.strip()):
+				# remove newline char
+				line = line.rstrip('\n')
+				if (line.startswith('status')): line = line.split(':')[1]
+				if (line.startswith('title')): line = line.split(':')[1]
+				# if first nonempty line
+				linelist.extend([line])
+            		else:
+				# print(len(linelist))
+                		# update l
+				l.append(tuple(linelist))
+                		# reset
+				counter += 1
+				linelist = [str(counter)]
+
+for x in l:
+	# print(len(x))
+	print(x)
+
+# here's the schema I'm depositing data into:
+
+# CREATE TABLE people (
+#   id integer primary key autoincrement,
+#   iscurrent integer not null,
+#   name text not null,
+#   title text not null,
+#   bio text not null,
+#   email text,
+#   imagefile text,
+#   webpage text
+# );
+
+# clear database
+c.execute('DELETE FROM people WHERE id>=1')
+
+# insert into db
+c.executemany('INSERT INTO people (id, imagefile, bio, name, iscurrent, title, email, webpage) VALUES (?,?,?,?,?,?,?,?)', l)
+
+# Save (commit) the changes
+conn.commit()
+
+# We can also close the connection if we are done with it.
+# Just be sure any changes have been committed or they will be lost.
+conn.close()
