@@ -1,0 +1,118 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import sys
+import re
+import sqlite3
+
+# About: hacky script to load publication data into an sqlite3 db from a text file in the format, e.g.:
+
+# Pegasus: a comprehensive annotation and prediction tool for detection of driver gene fusions in cancer.
+# Francesco Abate*, Sakellarios Zairis*, Elisa Ficarra, Andrea Acquaviva, Chris H Wiggins, Veronique Frattini, Anna Lasorella, Antonio Iavarone, Giorgio Inghirami and Raul Rabadan.
+# <a href="http://www.biomedcentral.com/1752-0509/8/97/abstract">BMC Systems Biology 2014 Sept 4. 8:97. doi:10.1186/s12918-014-0097-z.</a>
+# * These authors have contributed equally to this work.
+
+conn = sqlite3.connect(sys.argv[1])
+conn.text_factory = str
+c = conn.cursor()
+
+# clear database
+c.execute('DELETE FROM publications WHERE id>=1')
+
+counter = 1         # counter 
+counterintra = 1    # a counter for inside the entry
+                    # dictionary for publications
+d_entry = { 	'title':'-',
+		'auth':'-',
+		'jour':'-',
+		'jour2':'-',
+		'url':'-',
+		'year':'-',
+		'doi':'-',
+		'note':'-' } 
+
+with open(sys.argv[2], "r") as f:
+	for line in f:
+		# if line not empty
+		if (line.strip()):
+
+			line = line.rstrip('\n')
+
+			# if first line within entry it's the publication name
+			if (counterintra == 1):
+				d_entry['title'] = line
+			# if second line within entry it's the authors
+			elif (counterintra == 2):
+				d_entry['auth'] = line
+			# note
+			elif (line.startswith('*') or line.startswith('‡')):
+				d_entry['note'] = line
+			# if third line within entry it's the journal
+			else:
+				# add to journal 1 or 2 entry, depending on if set
+				if (d_entry['jour'] == '-'):
+					d_entry['jour'] = line
+				else:
+					d_entry['jour2'] = line
+
+				# get year if not set
+				if (d_entry['year'] == '-'):
+					match2 = re.search(r' (20\d{2}|1999)', line) 
+					if (match2):
+						d_entry['year'] = match2.group(1)
+
+				# try parsing to get url, doi
+				match = re.search(r'<a href="(.*)">(.*)<(.*)', line)
+				if (match):
+					d_entry['url'] = match.group(1)
+					d_entry['doi'] = match.group(2)
+					d_entry['doi'] = match.group(2)
+					# remove leading space
+					if d_entry['doi'][0] == " ": d_entry['doi']=d_entry['doi'][1:]
+
+			counterintra += 1
+		else:
+			# print (d_entry)
+
+			# insert into db
+			# print('INSERT INTO publications (id, year, title, authors, journal, journal2, doi, journal_url, notes) VALUES ({c},{year},{title},{auth},{jour},{jour2},{doi},{url},{note})'.format(c=counter, **d_entry))
+			# c.execute('INSERT INTO publications (id, year, title, authors, journal, journal2, doi, journal_url, notes) VALUES ({c},{title},{auth},{jour},{jour2},{doi},{url},{note})'.format(c=counter, **d_entry))
+			l = (counter, d_entry['year'], d_entry['title'], d_entry['auth'], d_entry['jour'], d_entry['jour2'], d_entry['doi'], d_entry['url'], d_entry['note'])
+			c.execute('INSERT INTO publications (id, year, title, authors, journal, journal2, doi, journal_url, notes) VALUES (?,?,?,?,?,?,?,?,?)', l)
+
+			# Save (commit) the changes
+			conn.commit()
+
+			# increment
+			counter += 1
+			# reset
+			counterintra = 1
+			d_entry = { 	'title':'-',
+					'auth':'-',
+					'jour':'-',
+					'jour2':'-',
+					'url':'-',
+					'year':'-',
+					'doi':'-',
+					'note':'-' } 
+
+# here's the schema I'm depositing data into:
+
+# CREATE TABLE publications (
+#   id integer primary key autoincrement,
+#   ishightlight integer,
+#   year integer not null,
+#   title text not null,
+#   authors text not null,
+#   journal text not null,
+#   journal2 text,
+#   doi text,
+#   authors_first text,
+#   authors_corresponding text,
+#   journal_url text,
+#   notes text
+# );
+
+# We can also close the connection if we are done with it.
+# Just be sure any changes have been committed or they will be lost.
+conn.close()
