@@ -60,7 +60,9 @@ def index():
 
 @application.route('/publications')
 def pubs():
-    return render_template('publications.html')
+    cur = g.db.execute('select title, authors from publications order by id desc')
+    entries = [dict(title=row[0], authors=row[1]) for row in cur.fetchall()]
+    return render_template('publications.html', entries=entries)
 
 @application.route('/press')
 def press():

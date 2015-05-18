@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %}Publications{% endblock %}
+{% block title %}People{% endblock %}
 
 <!-- Header -->
 {% block header %}
@@ -12,7 +12,18 @@
 <!-- Content -->
 {% block content %}
 
-  <i>Welcome on my awesome homepage.</i>
+  <i>Publications</i>
+  <br>
+  <br>
+  {% for entry in entries %}
+    <h4>{{ entry.name }}</h4>
+    <b>{{ entry.title }}</b>
+    <br>
+    <small>{{ entry.authors|safe }}</small>
+  {% else %}
+    <em>Unbelievable.  No entries here so far</em>
+  {% endfor %}
+
   <br>
   <br>
 
