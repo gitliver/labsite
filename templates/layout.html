@@ -1,49 +1,137 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
   <!-- Head --> 
   <head>
-    {% block head %}
-
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
     <!--
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="../../favicon.ico">
     -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-3.3.4-dist/css/bootstrap.min.css') }}">
-    <script src="{{ url_for('static', filename='js/jquery-2.1.4.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='bootstrap-3.3.4-dist/js/bootstrap.min.js') }}"></script>
 
-    <title>Rabadan Lab | {% block title %}{% endblock %}</title>
+    <!-- based on Carousel Template for Bootstrap -->
 
-    {% endblock %}
+    <title>Rabadan Lab | {% block title %}Home{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="static/bootstrap-3.3.4-dist/css/bootstrap.min.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="static/css/carousel.css">
+
   </head>
 
   <!-- Body --> 
   <body>
 
-    <div id="container">
+    <!-- NAVBAR
+    ================================================== -->
+    <div class="navbar-wrapper">
+      <div class="container">
+
+        <nav class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/">Rabadan Lab</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li><a href="/publications">Publications</a> </li>
+                <li><a href="/research">Research</a> </li>
+                <li><a href="/people">People</a> </li>
+                <li><a href="/press">Press</a> </li>
+                <li><a href="/software">Software</a> </li>
+                <li><a href="/courses">Courses</a> </li>
+                <li><a href="/contact">Contact</a> </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">For Lab Members<span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+		    <li><a href="http://wiki.c2b2.columbia.edu/systems/index.php/FAQ">C2B2 Wiki</a></li>
+		    <li><a href="https://groups.google.com/forum/#!forum/rabadanlab">Google Group</a></li>
+		    <li><a href="http://wiki.c2b2.columbia.edu/rabadanlab/index.php/Main_Page">Lab Wiki</a></li>
+		    <li><a href="http://wiki.c2b2.columbia.edu/rabadanlab/index.php/Fellowships">Grants & Fellowships</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+      </div>
+    </div>
+
+    <!-- Header --> 
+    <div id="template-header">
+      {% block header %}
+      {% endblock %}
+    </div>
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+
+      <!-- START THE FEATURETTES -->
 
       <!-- Header --> 
-      <div id="header">
-        {% block header %}
+      <div id="template-header-2">
+        {% block header2 %}
         {% endblock %}
       </div>
 
       <!-- Content --> 
-
-      <div id="content">
+      <div id="template-content">
         {% block content %}
         {% endblock %}
       </div>
 
-      <!-- Footer --> 
-      <div id="footer">
-        {% block footer %}
-        &copy; 2015 The Rabadan Lab 
-        {% endblock %}
-      </div>
+      <!-- /END THE FEATURETTES -->
 
-    </div>
+      <!-- FOOTER -->
+      <footer>
 
+        <hr class="featurette-divider">
+
+        <p class="pull-right"><a href="#">Back to top</a></p>
+	<p>&copy; 2015 The Rabadan Lab</p>
+	<small>
+	Raul Rabadan<br>
+	Department of Biomedical Informatics<br>
+	Columbia University College of Physicians &amp; Surgeons<br>
+	ICRC Building 8th Floor, Office 803B<br>
+	1130 St. Nicholas Ave &middot; New York, NY 10032<br>
+	<a href="mailto:rabadan@dbmi.columbia.edu?Subject=Email%20via%20Lab%20Webpage">rabadan[at]dbmi.columbia.edu</a>
+	</small>
+
+      </footer>
+
+    </div><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="static/js/jquery-2.1.4.min.js"></script>
+    <script src="static/js/holder.js"></script>
+    <script src="static/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="static/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 
 </html>

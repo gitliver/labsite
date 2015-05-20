@@ -3,18 +3,17 @@
 {% block title %}People{% endblock %}
 
 <!-- Header -->
-{% block header %}
+{% block header2 %}
 
-  <h2>Rabadan Homepage</h2>
+<br><br><br><br>
+<h2>Publications</h2>
+<br>
 
 {% endblock %}
 
 <!-- Content -->
 {% block content %}
 
-  <i>Publications</i>
-  <br>
-  <br>
   {% for entry in entries %}
     <h4>{{ entry.name }}</h4>
     <b>{{ entry.title }}</b>
@@ -23,8 +22,5 @@
   {% else %}
     <em>Unbelievable.  No entries here so far</em>
   {% endfor %}
-
-  <br>
-  <br>
 
 {% endblock %}
