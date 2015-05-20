@@ -1,6 +1,7 @@
 tmp 
 sample_configs
 scripts/notes
-scripts/tmp
+*/tmp
 dbs
 notes
+static/img
