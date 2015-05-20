@@ -78,13 +78,17 @@ def people():
 def alum():
     return render_template('alumni.html')
 
-@application.route('/formembers')
-def formembers():
-    return render_template('formembers.html')
-
 @application.route('/courses')
 def courses():
     return render_template('courses.html')
+
+@application.route('/research')
+def research():
+    return render_template('research.html')
+
+@application.route('/software')
+def softw():
+    return render_template('software.html')
 
 @application.route('/contact')
 def contact():
