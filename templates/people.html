@@ -25,7 +25,21 @@
 
       <h4>{{ entry.name }}</h4>
 
+      <img src="static/img/people/{{ entry.imagefile }}" alt="image" width="116">
+
       {{ entry.bio|safe }}
+
+      <!-- print email if not set to dash -->
+      {% if entry.email != "-" %}
+        <br>
+	<i>Email: </i><a href="mailto:{{ entry.email }}?Subject=Email%20via%20Lab%20Webpage">{{ entry.email }}</a>
+      {% endif %}
+
+      <!-- print webpage if not set to dash -->
+      {% if entry.webpage != "-" %}
+        <br>
+	<i>Web: </i><a href="{{ entry.webpage }}">Homepage</a>
+      {% endif %}
 
     {% else %}
       <em>Unbelievable.  No entries here so far</em>
