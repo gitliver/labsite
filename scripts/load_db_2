@@ -57,6 +57,7 @@ with open(sys.argv[2], "r") as f:
 
 				# get year if not set
 				if (d_entry['year'] == '-'):
+					# assume it has leading space
 					match2 = re.search(r' (20\d{2}|1999)', line) 
 					if (match2):
 						d_entry['year'] = match2.group(1)
@@ -65,7 +66,6 @@ with open(sys.argv[2], "r") as f:
 				match = re.search(r'<a href="(.*)">(.*)<(.*)', line)
 				if (match):
 					d_entry['url'] = match.group(1)
-					d_entry['doi'] = match.group(2)
 					d_entry['doi'] = match.group(2)
 					# remove leading space
 					if d_entry['doi'][0] == " ": d_entry['doi']=d_entry['doi'][1:]
