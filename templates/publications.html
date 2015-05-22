@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %}People{% endblock %}
+{% block title %}Publications{% endblock %}
 
 <!-- Header -->
 {% block header2 %}
@@ -14,13 +14,41 @@
 <!-- Content -->
 {% block content %}
 
-  {% for entry in entries %}
-    <h4>{{ entry.name }}</h4>
-    <b>{{ entry.title }}</b>
-    <br>
-    <small>{{ entry.authors|safe }}</small>
-  {% else %}
-    <em>Unbelievable.  No entries here so far</em>
+  {% for yearpubs in mydata %}
+
+    {% for entry in yearpubs %}
+
+      {% if loop.first %}
+        <!-- print year -->
+        <h3>{{ entry.year }}</h3>
+      {% endif %}
+
+      <strong>{{ entry.title|safe }}</strong>
+      <br>
+      {{ entry.authors|safe }}
+      <br>
+     
+      <!-- if journal_url not empty, link available; else print journal (no link) -->
+      {% if entry.journal_url != "-" %}
+        <a href="{{ entry.journal_url }}">{{ entry.doi }}</a>
+      {% else %}
+        {{ entry.journal }}
+      {% endif %}
+
+      <br>
+
+      <!-- print notes if not set to dash -->
+      {% if entry.notes != "-" %}
+        <i>{{ entry.notes|safe }}</i>
+        <br>
+      {% endif %}
+
+      <br>
+
+    {% else %}
+      <em>Unbelievable.  No entries here so far</em>
+    {% endfor %}
+
   {% endfor %}
 
 {% endblock %}

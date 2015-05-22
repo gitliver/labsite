@@ -12,6 +12,7 @@ import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
 from contextlib import closing
+from datetime import date
 
 # configuration
 # DATABASE = '/tmp/flaskr.db'
@@ -60,9 +61,19 @@ def index():
 
 @application.route('/publications')
 def pubs():
-    cur = g.db.execute('select title, authors from publications order by id desc')
-    entries = [dict(title=row[0], authors=row[1]) for row in cur.fetchall()]
-    return render_template('publications.html', entries=entries)
+    # db query
+    cur = g.db.execute('select id, year, title, authors, journal, journal2, doi, journal_url, notes from publications order by id')
+    entries = [dict(id=row[0], year=row[1], title=row[2], authors=row[3], journal=row[4], journal2=row[5], doi=row[6], journal_url=row[7], notes=row[8]) for row in cur.fetchall()]
+
+    # list of lists of entry dicts, segregated by year
+    entries_year = []
+    for i in reversed(range(1999,date.today().year + 1)):
+        entries_year.append(filter(lambda y: y['year'] == i, entries))
+
+    try:
+        return render_template('publications.html', mydata=entries_year)
+    except:
+        return render_template('error.html')
 
 @application.route('/press')
 def press():
@@ -70,9 +81,20 @@ def press():
 
 @application.route('/people')
 def people():
-    cur = g.db.execute('select iscurrent, name, title, bio, email, imagefile, webpage from people order by id desc')
-    entries = [dict(name=row[1], title=row[2], bio=row[3]) for row in cur.fetchall()]
-    return render_template('people.html', entries=entries)
+    cur = g.db.execute('select iscurrent, name, title, bio, email, imagefile, webpage from people order by id')
+    entries = [dict(iscurrent=row[0], name=row[1], title=row[2], bio=row[3], email=row[4], imagefile=row[5], webpage=row[6]) for row in cur.fetchall()]
+    # data struct looks like, e.g.:
+    # entries = [ [{'name': u'joe', 'title': u'xxx'}], [{'name': u'Raul Rabadan', 'title': u'PI'}, {'name': u'Hossein Khiabanian', 'title': u'Associate Research Scientist'}, {'name': u'Jiguang Wang', 'title': u'Associate Research Scientist'}, {'name': u'Francesco Abate', 'title': u'Postdoc'}] ]
+
+    # list of lists of people dicts, segregated by title
+    entries_title = []
+    for i in ["PI", "Associate Research Scientists", "Postdocs", "Doctoral Students", "Staff", "Master's Students", "Alumni"]:
+        entries_title.append(filter(lambda y: y['title'] == i, entries))
+
+    try:
+        return render_template('people.html', mydata=entries_title)
+    except:
+        return render_template('error.html')
 
 @application.route('/alumni')
 def alum():
