@@ -18,7 +18,10 @@
     <title>Rabadan Lab | {% block title %}Home{% endblock %}</title>
 
     <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="static/bootstrap-3.3.4-dist/css/bootstrap.css">
+    <!--
     <link rel="stylesheet" href="static/bootstrap-3.3.4-dist/css/bootstrap.min.css">
+    -->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -28,6 +31,7 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="static/css/carousel.css">
+    <link rel="stylesheet" href="static/css/custom.css">
 
   </head>
 
@@ -36,10 +40,11 @@
 
     <!-- NAVBAR
     ================================================== -->
+
     <div class="navbar-wrapper">
       <div class="container">
 
-        <nav class="navbar navbar-inverse navbar-static-top">
+        <nav class="navbar navbar-inverse navbar-static-top navy" style="margin-top:15px;">
           <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -48,19 +53,24 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="/">Rabadan Lab</a>
+	      <a class="navbar-brand"><img style="max-width:80px; margin-top: -7px;" src="static/img/decals/lion.80.80.png"></a>
+	      <a class="navbar-brand" href="/">Rabadan Lab</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li><a href="/publications">Publications</a> </li>
-                <li><a href="/research">Research</a> </li>
-                <li><a href="/people">People</a> </li>
-                <li><a href="/press">Press</a> </li>
-                <li><a href="/software">Software</a> </li>
-                <li><a href="/courses">Courses</a> </li>
-                <li><a href="/contact">Contact</a> </li>
+                <li><a href="/publications">Publications</a></li>
+                <li><a href="/people">People</a></li>
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">For Lab Members<span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">More Information<span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="/press">Press</a></li>
+                    <li><a href="/software">Software</a></li>
+                    <li><a href="/courses">Courses</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">For Members<span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
 		    <li><a href="http://wiki.c2b2.columbia.edu/systems/index.php/FAQ">C2B2 Wiki</a></li>
 		    <li><a href="https://groups.google.com/forum/#!forum/rabadanlab">Google Group</a></li>
@@ -76,17 +86,17 @@
       </div>
     </div>
 
-    <!-- Header --> 
-    <div id="template-header">
-      {% block header %}
-      {% endblock %}
-    </div>
-
     <!-- Marketing messaging and featurettes
     ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
     <div class="container marketing">
+
+      <!-- Header --> 
+      <div id="template-header">
+        {% block header %}
+        {% endblock %}
+      </div>
 
       <!-- START THE FEATURETTES -->
 
@@ -108,6 +118,8 @@
       <footer>
 
         <hr class="featurette-divider">
+
+        <img style="max-width:80px; margin-top: -7px;" src="static/img/decals/crown.100.100.jpeg">
 
         <p class="pull-right"><a href="#">Back to top</a></p>
 	<p>&copy; 2015 The Rabadan Lab</p>
