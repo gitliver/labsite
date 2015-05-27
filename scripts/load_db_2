@@ -27,8 +27,10 @@ d_entry = { 	'title':'-',
 		'jour':'-',
 		'jour2':'-',
 		'url':'-',
+		'url2':'-',
 		'year':'-',
 		'doi':'-',
+		'doi2':'-',
 		'note':'-' } 
 
 with open(sys.argv[2], "r") as f:
@@ -52,8 +54,25 @@ with open(sys.argv[2], "r") as f:
 				# add to journal 1 or 2 entry, depending on if set
 				if (d_entry['jour'] == '-'):
 					d_entry['jour'] = line
+
+					# try parsing to get url, doi
+					match = re.search(r'<a href="(.*)">(.*)<(.*)', line)
+					if (match):
+						d_entry['url'] = match.group(1)
+						d_entry['doi'] = match.group(2)
+						# remove leading space
+						if d_entry['doi'][0] == " ": d_entry['doi']=d_entry['doi'][1:]
 				else:
 					d_entry['jour2'] = line
+
+					# sloppy code repetition (violation of DRY)
+					# try parsing to get url, doi
+					match = re.search(r'<a href="(.*)">(.*)<(.*)', line)
+					if (match):
+						d_entry['url2'] = match.group(1)
+						d_entry['doi2'] = match.group(2)
+						# remove leading space
+						if d_entry['doi2'][0] == " ": d_entry['doi2']=d_entry['doi2'][1:]
 
 				# get year if not set
 				if (d_entry['year'] == '-'):
@@ -62,14 +81,6 @@ with open(sys.argv[2], "r") as f:
 					if (match2):
 						d_entry['year'] = match2.group(1)
 
-				# try parsing to get url, doi
-				match = re.search(r'<a href="(.*)">(.*)<(.*)', line)
-				if (match):
-					d_entry['url'] = match.group(1)
-					d_entry['doi'] = match.group(2)
-					# remove leading space
-					if d_entry['doi'][0] == " ": d_entry['doi']=d_entry['doi'][1:]
-
 			counterintra += 1
 		else:
 			# print (d_entry)
@@ -77,8 +88,8 @@ with open(sys.argv[2], "r") as f:
 			# insert into db
 			# print('INSERT INTO publications (id, year, title, authors, journal, journal2, doi, journal_url, notes) VALUES ({c},{year},{title},{auth},{jour},{jour2},{doi},{url},{note})'.format(c=counter, **d_entry))
 			# c.execute('INSERT INTO publications (id, year, title, authors, journal, journal2, doi, journal_url, notes) VALUES ({c},{title},{auth},{jour},{jour2},{doi},{url},{note})'.format(c=counter, **d_entry))
-			l = (counter, d_entry['year'], d_entry['title'], d_entry['auth'], d_entry['jour'], d_entry['jour2'], d_entry['doi'], d_entry['url'], d_entry['note'])
-			c.execute('INSERT INTO publications (id, year, title, authors, journal, journal2, doi, journal_url, notes) VALUES (?,?,?,?,?,?,?,?,?)', l)
+			l = (counter, d_entry['year'], d_entry['title'], d_entry['auth'], d_entry['jour'], d_entry['jour2'], d_entry['doi'], d_entry['doi2'], d_entry['url'], d_entry['url2'], d_entry['note'])
+			c.execute('INSERT INTO publications (id, year, title, authors, journal, journal2, doi, doi2, journal_url, journal_url2, notes) VALUES (?,?,?,?,?,?,?,?,?,?,?)', l)
 
 			# Save (commit) the changes
 			conn.commit()
@@ -92,8 +103,10 @@ with open(sys.argv[2], "r") as f:
 					'jour':'-',
 					'jour2':'-',
 					'url':'-',
+					'url2':'-',
 					'year':'-',
 					'doi':'-',
+					'doi2':'-',
 					'note':'-' } 
 
 # here's the schema I'm depositing data into:

@@ -62,8 +62,8 @@ def index():
 @application.route('/publications')
 def pubs():
     # db query
-    cur = g.db.execute('select id, year, title, authors, journal, journal2, doi, journal_url, notes from publications order by id')
-    entries = [dict(id=row[0], year=row[1], title=row[2], authors=row[3], journal=row[4], journal2=row[5], doi=row[6], journal_url=row[7], notes=row[8]) for row in cur.fetchall()]
+    cur = g.db.execute('select id, year, title, authors, journal, journal2, doi, doi2, journal_url, journal_url2, notes from publications order by id')
+    entries = [dict(id=row[0], year=row[1], title=row[2], authors=row[3], journal=row[4], journal2=row[5], doi=row[6], doi2=row[7], journal_url=row[8], journal_url2=row[9], notes=row[10]) for row in cur.fetchall()]
 
     # list of lists of entry dicts, segregated by year
     entries_year = []

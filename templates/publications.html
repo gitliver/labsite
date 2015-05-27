@@ -36,6 +36,15 @@
 
       <br>
 
+      <!-- if journal_url not empty, link available; else print journal (no link) -->
+      {% if entry.journal_url2 != "-" %}
+        <a href="{{ entry.journal_url2 }}">{{ entry.doi2 }}</a>
+	<br>
+      {% elif entry.journal2 != "-" %}
+        {{ entry.journal2 }}
+	<br>
+      {% endif %}
+
       <!-- print notes if not set to dash -->
       {% if entry.notes != "-" %}
         <i>{{ entry.notes|safe }}</i>
