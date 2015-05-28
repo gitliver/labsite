@@ -5,3 +5,5 @@ scripts/notes
 dbs
 notes
 static/img
+static/tmp
+static/*.zip
