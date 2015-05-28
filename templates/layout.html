@@ -29,6 +29,8 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <link rel="stylesheet" href="static/jquery.qtip.custom/jquery.qtip.css">
+
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="static/css/carousel.css">
     <link rel="stylesheet" href="static/css/custom.css">
@@ -62,7 +64,13 @@
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
                 <li><a href="/publications">Publications</a></li>
-                <li><a href="/people">People</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">People<span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="/people">Current</a></li>
+                    <li><a href="/alumni">Alumni</a></li>
+                  </ul>
+                </li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">More Information<span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
@@ -171,11 +179,25 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+
     <script src="static/js/jquery-2.1.4.min.js"></script>
-    <script src="static/js/holder.js"></script>
+
     <script src="static/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+
+    <script src="static/jquery.qtip.custom/jquery.qtip.js"></script>
+
+    <script src="static/js/custom.js"></script>
+
+    <script src="static/js/holder.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="static/js/ie10-viewport-bug-workaround.js"></script>
+
+    <script>
+        $(document).ready(function() {
+                useQtips();
+        });
+    </script>
+
   </body>
 
 </html>
