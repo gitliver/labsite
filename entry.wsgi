@@ -55,6 +55,13 @@ def teardown_request(exception):
     except:
         print("Doh! Error closing db")
 
+def get_people():
+    """get people entries from the db"""
+    cur = g.db.execute('select iscurrent, name, title, bio, email, imagefile, webpage from people order by id')
+    return [dict(iscurrent=row[0], name=row[1], title=row[2], bio=row[3], email=row[4], imagefile=row[5], webpage=row[6]) for row in cur.fetchall()]
+
+# --- URL routing --- #
+
 @application.route('/')
 def index():
     return render_template('home.html')
@@ -80,25 +87,29 @@ def press():
     return render_template('press.html')
 
 @application.route('/people')
-def people():
-    cur = g.db.execute('select iscurrent, name, title, bio, email, imagefile, webpage from people order by id')
-    entries = [dict(iscurrent=row[0], name=row[1], title=row[2], bio=row[3], email=row[4], imagefile=row[5], webpage=row[6]) for row in cur.fetchall()]
+@application.route('/people/<mystatus>')
+def people(mystatus=None):
+    entries = get_people()
     # data struct looks like, e.g.:
     # entries = [ [{'name': u'joe', 'title': u'xxx'}], [{'name': u'Raul Rabadan', 'title': u'PI'}, {'name': u'Hossein Khiabanian', 'title': u'Associate Research Scientist'}, {'name': u'Jiguang Wang', 'title': u'Associate Research Scientist'}, {'name': u'Francesco Abate', 'title': u'Postdoc'}] ]
 
     # list of lists of people dicts, segregated by title
     entries_title = []
-    for i in ["PI", "Associate Research Scientists", "Postdocs", "Doctoral Students", "Staff", "Master's Students", "Alumni"]:
+
+    # titles of current members
+    titles = ["PI", "Associate Research Scientists", "Postdocs", "Doctoral Students", "Staff", "Master's Students"]
+    # titles of alumni
+    if (mystatus == "alum"):
+        titles = ["Alumni"]
+
+    # make data struct 
+    for i in titles:
         entries_title.append(filter(lambda y: y['title'] == i, entries))
 
     try:
         return render_template('people.html', mydata=entries_title)
     except:
         return render_template('error.html')
-
-@application.route('/alumni')
-def alum():
-    return render_template('alumni.html')
 
 @application.route('/courses')
 def courses():
