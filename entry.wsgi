@@ -107,7 +107,7 @@ def people(mystatus=None):
         entries_title.append(filter(lambda y: y['title'] == i, entries))
 
     try:
-        return render_template('people.html', mydata=entries_title)
+        return render_template('people.html', mydata=entries_title, mystatus=mystatus)
     except:
         return render_template('error.html')
 
