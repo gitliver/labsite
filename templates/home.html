@@ -2,6 +2,16 @@
 
 {% block title %}Home{% endblock %}
 
+<!-- CSS for this specific page -->
+{% block extracss %}
+
+<!-- qTip2 -->
+<link rel="stylesheet" href="/static/jquery.qtip.custom/jquery.qtip.css">
+<!-- Hover -->
+<link rel="stylesheet" href="/static/Hover-master/css/hover.css">
+
+{% endblock %}
+
 <!-- Header -->
 {% block header %}
 
@@ -18,45 +28,37 @@
 
 <!-- Three columns of text below the carousel -->
 <div class="row" style="background: url(static/img/frontpage/backgroundscrawl.1200.jpg) 50% 0 no-repeat fixed;">
+
   <div class="col-lg-4">
-    <a href="/publications">
+    <a class="hvr-float-shadow" href="/publications">
     <img class="img-circle hasTooltip" src="static/img/frontpage/pubgraphic4.400.400.png" alt="image" width="200" height="200">
-    <div class="hidden"> <!-- This class should hide the element, change it if needed -->
+    <div class="hidden"> <!-- for qTip ... This class should hide the element, change it if needed -->
       <h5>A complete listing of publications from Dr. Rabadan and the Rabadan Lab</h5>
     </div>
     </a>
     <h2><a href="/publications">Publications</a></h2>
-    <!--
-    <p><i>A complete listing of publications from Dr. Rabadan and the Rabadan Lab</i></p>
-    -->
   </div><!-- /.col-lg-4 -->
+
   <div class="col-lg-4">
-    <a href="/research">
-    <!--
-    <img class="img-circle" src="static/img/frontpage/research.flu.400.400.png" alt="image" width="200" height="200">
-    -->
+    <a class="hvr-float-shadow" href="/research">
     <img class="img-circle hasTooltip" src="static/img/frontpage/research.cnv.400.400.png" alt="image" width="200" height="200">
     <div class="hidden">
       <h5>An overview of research in the Rabadan Lab</h5>
     </div>
     </a>
     <h2><a href="/research">Research</a></h2>
-    <!--
-    <p><i>An overview of research in the Rabadan Lab</i></p>
-    -->
   </div><!-- /.col-lg-4 -->
+
   <div class="col-lg-4">
-    <a href="/people">
+    <a class="hvr-float-shadow" href="/people">
     <img class="img-circle hasTooltip" src="static/img/frontpage/collage.300.300.png" alt="image" width="200" height="200">
     <div class="hidden">
       <h5>Information about present and past members of the Rabadan Lab</h5>
     </div>
     </a>
     <h2><a href="/people">People</a></h2>
-    <!--
-    <p><i>Information about present and past members of the Rabadan Lab</i></p>
-    -->
   </div><!-- /.col-lg-4 -->
+
 </div><!-- /.row -->
 
 <!-- START THE FEATURETTES -->
@@ -287,5 +289,19 @@
   </div>
 
 </div>
+
+{% endblock %}
+
+<!-- JS for this specific page -->
+{% block extrajs %}
+
+<script src="/static/jquery.qtip.custom/jquery.qtip.js"></script>
+<script src="/static/js/custom.js"></script>
+
+<script>
+  $(document).ready(function() {
+	  useQtips();
+  });
+</script>
 
 {% endblock %}
