@@ -6,7 +6,7 @@
 {% block header2 %}
 
 <br><br><br><br>
-<h2>Publications</h2>
+<div class="ocustom-bigheader">Publications</div>
 <br>
 
 {% endblock %}
@@ -20,34 +20,40 @@
 
       {% if loop.first %}
         <!-- print year -->
-        <h3>{{ entry.year }}</h3>
+        <div class="ocustom-smallheader">{{ entry.year }}</div>
       {% endif %}
 
-      <h4>{{ entry.title|safe }}</h4>
+      <div class="ocustom-pubtitle">
+      {{ entry.title|safe }}
+      </div>
+
+      <div class="ocustom-pubauth">
       {{ entry.authors|safe }}
-      <br>
-     
+      </div>
+
       <!-- if journal_url not empty, link available; else print journal (no link) -->
+      <div class="ocustom-pubjour">
       {% if entry.journal_url != "-" %}
         <a href="{{ entry.journal_url }}">{{ entry.doi }}</a>
       {% else %}
         {{ entry.journal }}
       {% endif %}
-
-      <br>
+      </div>
 
       <!-- if journal_url not empty, link available; else print journal (no link) -->
       {% if entry.journal_url2 != "-" %}
+        <div class="ocustom-pubjour">
         <a href="{{ entry.journal_url2 }}">{{ entry.doi2 }}</a>
-	<br>
+        </div>
       {% elif entry.journal2 != "-" %}
+        <div class="ocustom-pubjour">
         {{ entry.journal2 }}
-	<br>
+        </div>
       {% endif %}
 
       <!-- print notes if not set to dash -->
       {% if entry.notes != "-" %}
-        <i>{{ entry.notes|safe }}</i>
+        <span class="ocustom-droidsans"><i>{{ entry.notes|safe }}</i></span>
         <br>
       {% endif %}
 
