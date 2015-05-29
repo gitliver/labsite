@@ -6,7 +6,7 @@
 {% block header2 %}
 
 <br><br><br><br>
-<h2>People</h2>
+<div class="ocustom-bigheader">People</div>
 <br>
 
 {% endblock %}
@@ -20,7 +20,7 @@
 
       {% if loop.first %}
         <!-- print title -->
-        <h3>{{ entry.title }}</h3>
+        <div class="ocustom-smallheader-grey">{{ entry.title }}</div>
       {% endif %}
 
       <h4>{{ entry.name }}</h4>
