@@ -47,4 +47,15 @@
 
   {% endfor %}
 
+   <!-- print email if not set to dash -->
+   {% if not mystatus %}
+     <br>
+     <br>
+
+     <b>
+     <a href="/people/alum"><i>Alumni of the Rabadan Lab</i></a>
+     </b>
+
+   {% endif %}
+
 {% endblock %}
