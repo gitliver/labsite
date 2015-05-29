@@ -91,13 +91,13 @@ def press():
 def people(mystatus=None):
     entries = get_people()
     # data struct looks like, e.g.:
-    # entries = [ [{'name': u'joe', 'title': u'xxx'}], [{'name': u'Raul Rabadan', 'title': u'PI'}, {'name': u'Hossein Khiabanian', 'title': u'Associate Research Scientist'}, {'name': u'Jiguang Wang', 'title': u'Associate Research Scientist'}, {'name': u'Francesco Abate', 'title': u'Postdoc'}] ]
+    # entries = [ [{'name': u'joe', 'title': u'xxx'}], [{'name': u'Raul Rabadan', 'title': u'Principal Investigator'}, {'name': u'Hossein Khiabanian', 'title': u'Associate Research Scientist'}, {'name': u'Jiguang Wang', 'title': u'Associate Research Scientist'}, {'name': u'Francesco Abate', 'title': u'Postdoc'}] ]
 
     # list of lists of people dicts, segregated by title
     entries_title = []
 
     # titles of current members
-    titles = ["PI", "Associate Research Scientists", "Postdocs", "Doctoral Students", "Staff", "Master's Students"]
+    titles = ["Principal Investigator", "Associate Research Scientists", "Postdocs", "Doctoral Students", "Staff", "Master's Students"]
     # titles of alumni
     if (mystatus == "alum"):
         titles = ["Alumni"]
