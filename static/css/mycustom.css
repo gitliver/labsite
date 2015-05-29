@@ -1,0 +1,104 @@
+.ocustom-navy
+{
+	/* columbia light blue */
+	/*
+	background-color: #66ccff;
+	*/
+
+	/*
+	background-color: #6699cc;
+	*/
+
+	/* columbia dark blue */
+	/*
+	background-color: #006699;
+	*/
+
+	background-color: #336699;
+}
+
+.ocustom-bitter
+{
+	/* fonts from https://www.google.com/fonts/ */
+	font-family: 'Bitter', serif;
+}
+
+.ocustom-droidsans
+{
+	/* fonts from https://www.google.com/fonts/ */
+	font-family: 'Droid Sans', sans-serif;
+}
+
+.ocustom-opensans
+{
+	/* fonts from https://www.google.com/fonts/ */
+	font-family: 'Open Sans', sans-serif;
+}
+
+.ocustom-opensanscond
+{
+	/* fonts from https://www.google.com/fonts/ */
+	font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.ocustom-bigheader
+{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 3em;
+	font-weight: normal;
+	line-height: 1.75em;
+	color: #336699;
+}
+
+.ocustom-smallheader
+{
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 2.5em;
+	font-weight: normal;
+	line-height: 2em;
+	text-align: center;
+	/*
+	color: #5a5a5a; 
+	*/
+	/* deep red */
+	color: #B40431; 
+}
+
+.ocustom-smallheader-grey
+{
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 2em;
+	font-weight: normal;
+	line-height: 2em;
+	text-align: center;
+	/* grey */
+	color: #5a5a5a; 
+}
+
+/* publication styles */
+
+.ocustom-pubtitle
+{
+	font-family: 'Bitter', serif;
+	font-size: 1.5em;
+	font-weight: normal;
+	line-height: 1.8em;
+	color: black !important;
+}
+
+.ocustom-pubauth
+{
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 1.3em;
+	font-weight: normal;
+	line-height: 1.5em;
+	color: #5a5a5a; /* grey */
+}
+
+.ocustom-pubjour
+{
+	font-family: 'Bitter', serif;
+	font-size: 1.2em;
+	font-weight: normal;
+	line-height: 2.25em;
+}
