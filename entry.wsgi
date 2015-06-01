@@ -67,6 +67,11 @@ def get_pubs():
     cur = g.db.execute('select id, year, title, authors, journal, journal2, doi, doi2, journal_url, journal_url2, notes from publications order by id')
     return [dict(id=row[0], year=row[1], title=row[2], authors=row[3], journal=row[4], journal2=row[5], doi=row[6], doi2=row[7], journal_url=row[8], journal_url2=row[9], notes=row[10]) for row in cur.fetchall()]
 
+def get_press():
+    """get press entries from the db"""
+    cur = g.db.execute('select id, year, mytext, journal_url from press order by id')
+    return [dict(id=row[0], year=row[1], mytext=row[2], journal_url=row[3]) for row in cur.fetchall()]
+
 # --- URL routing --- #
 
 @application.route('/')
@@ -90,7 +95,13 @@ def pubs():
 
 @application.route('/press')
 def press():
-    return render_template('press.html')
+    # db query
+    entries = get_press()
+
+    try:
+        return render_template('press.html', mydata=entries)
+    except:
+        return render_template('error.html')
 
 @application.route('/people')
 @application.route('/people/<mystatus>')
