@@ -2,7 +2,9 @@ tmp
 sample_configs
 scripts/notes
 */tmp
-dbs
+dbs/*.db
+dbs/*.txt
+dbs/*.html
 notes
 static/img
 static/tmp
