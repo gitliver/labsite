@@ -20,26 +20,37 @@
 
       {% if loop.first %}
         <!-- print title -->
-        <div class="ocustom-smallheader-grey">{{ entry.title }}</div>
+        <div class="ocustom-smallerheader">{{ entry.title }}</div>
       {% endif %}
 
-      <h4>{{ entry.name }}</h4>
+      <div class="row">
+      <div class="col-md-10">
+ 
+        <div class="ocustom-membertitle">{{ entry.name }}</div>
+        <img class="memberimage" src="/static/img/people/{{ entry.imagefile }}" alt="image" width="116">
+  
+	<div class="ocustom-memberbio">{{ entry.bio|safe }}</div>
+  
+        <!-- print email if not set to dash -->
+	<div class="ocustom-memberemail">
+	<strong>
 
-      <img src="/static/img/people/{{ entry.imagefile }}" alt="image" width="116">
+          {% if entry.email != "-" %}
+            <a style="color:black;" href="mailto:{{ entry.email }}?Subject=Email%20via%20Lab%20Webpage">{{ entry.email }}</a>
+          {% endif %}
+  
+          <!-- print webpage if not set to dash -->
+          {% if entry.webpage != "-" %}
+            &middot; <a href="{{ entry.webpage }}">homepage</a>
+          {% endif %}
 
-      {{ entry.bio|safe }}
+	</strong>
+	</div>
+  
+      </div>
+      </div>
 
-      <!-- print email if not set to dash -->
-      {% if entry.email != "-" %}
-        <br>
-	<i>Email: </i><a href="mailto:{{ entry.email }}?Subject=Email%20via%20Lab%20Webpage">{{ entry.email }}</a>
-      {% endif %}
-
-      <!-- print webpage if not set to dash -->
-      {% if entry.webpage != "-" %}
-        <br>
-	<i>Web: </i><a href="{{ entry.webpage }}">Homepage</a>
-      {% endif %}
+      <br>
 
     {% else %}
       <em>Unbelievable.  No entries here so far</em>
@@ -52,9 +63,9 @@
      <br>
      <br>
 
-     <b>
-     <a href="/people/alum"><i>Alumni of the Rabadan Lab</i></a>
-     </b>
+     <div class="ocustom-membertitle">
+       <a href="/people/alum">Alumni of the Rabadan Lab</a>
+     </div>
 
    {% endif %}
 
