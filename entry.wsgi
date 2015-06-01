@@ -18,7 +18,7 @@ from datetime import date
 # DATABASE = '/tmp/flaskr.db'
 DATABASE=os.path.join(os.getcwd(), 'labsite/dbs/labsite.db')
 # Never leave debug mode activated in a production system, because it will allow users to execute code on the server!
-DEBUG = True
+DEBUG = False
 SECRET_KEY = 'development key'
 USERNAME = 'admin'
 PASSWORD = 'default'
@@ -33,6 +33,8 @@ application.config.from_object(__name__)
 # if set an environment variable called FLASKR_SETTINGS to specify a config file 
 # to be loaded which will then override the default values
 # application.config.from_envvar('FLASKR_SETTINGS', silent=True)
+
+# --- db functions --- #
 
 def connect_db():
     """Connects to the specific database."""
@@ -60,6 +62,11 @@ def get_people():
     cur = g.db.execute('select iscurrent, name, title, bio, email, imagefile, webpage from people order by id')
     return [dict(iscurrent=row[0], name=row[1], title=row[2], bio=row[3], email=row[4], imagefile=row[5], webpage=row[6]) for row in cur.fetchall()]
 
+def get_pubs():
+    """get publication entries from the db"""
+    cur = g.db.execute('select id, year, title, authors, journal, journal2, doi, doi2, journal_url, journal_url2, notes from publications order by id')
+    return [dict(id=row[0], year=row[1], title=row[2], authors=row[3], journal=row[4], journal2=row[5], doi=row[6], doi2=row[7], journal_url=row[8], journal_url2=row[9], notes=row[10]) for row in cur.fetchall()]
+
 # --- URL routing --- #
 
 @application.route('/')
@@ -69,8 +76,7 @@ def index():
 @application.route('/publications')
 def pubs():
     # db query
-    cur = g.db.execute('select id, year, title, authors, journal, journal2, doi, doi2, journal_url, journal_url2, notes from publications order by id')
-    entries = [dict(id=row[0], year=row[1], title=row[2], authors=row[3], journal=row[4], journal2=row[5], doi=row[6], doi2=row[7], journal_url=row[8], journal_url2=row[9], notes=row[10]) for row in cur.fetchall()]
+    entries = get_pubs()
 
     # list of lists of entry dicts, segregated by year
     entries_year = []
@@ -97,14 +103,16 @@ def people(mystatus=None):
     entries_title = []
 
     # titles of current members
-    titles = ["Principal Investigator", "Associate Research Scientists", "Postdocs", "Doctoral Students", "Staff", "Master's Students"]
+    titles = ["Principal Investigator", "Associate Research Scientists", "Postdoctoral Researchers", "Doctoral Students", "Staff", "Master's Students"]
     # titles of alumni
     if (mystatus == "alum"):
         titles = ["Alumni"]
 
     # make data struct 
     for i in titles:
-        entries_title.append(filter(lambda y: y['title'] == i, entries))
+	# if nonempty (i.e., there are members with the title)
+	if (filter(lambda y: y['title'] == i, entries)):
+            entries_title.append(filter(lambda y: y['title'] == i, entries))
 
     try:
         return render_template('people.html', mydata=entries_title, mystatus=mystatus)
