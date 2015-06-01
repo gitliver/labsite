@@ -14,6 +14,12 @@
 <!-- Content -->
 {% block content %}
 
-<i>Some content</i>
+  {% for entry in mydata %}
+
+    <div class="ocustom-pubjour">
+      <a style="color:black;" href="{{ entry.journal_url }}">{{ entry.mytext|safe }}</a>
+    </div>
+
+  {% endfor %}
 
 {% endblock %}
