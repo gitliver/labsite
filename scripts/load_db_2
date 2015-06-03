@@ -31,7 +31,8 @@ d_entry = { 	'title':'-',
 		'year':'-',
 		'doi':'-',
 		'doi2':'-',
-		'note':'-' } 
+		'note':'-',
+		'ishightlight':0 } 
 
 with open(sys.argv[2], "r") as f:
 	for line in f:
@@ -42,7 +43,13 @@ with open(sys.argv[2], "r") as f:
 
 			# if first line within entry it's the publication name
 			if (counterintra == 1):
-				d_entry['title'] = line
+				# distinguish between "selected" publications and ordinary ones
+				if line.startswith('[SELECTED]'):
+					d_entry['ishightlight'] = 1
+					# cut off prefix
+					d_entry['title'] = line[len('[SELECTED] '):]
+				else:
+					d_entry['title'] = line
 			# if second line within entry it's the authors
 			elif (counterintra == 2):
 				d_entry['auth'] = line
@@ -88,8 +95,8 @@ with open(sys.argv[2], "r") as f:
 			# insert into db
 			# print('INSERT INTO publications (id, year, title, authors, journal, journal2, doi, journal_url, notes) VALUES ({c},{year},{title},{auth},{jour},{jour2},{doi},{url},{note})'.format(c=counter, **d_entry))
 			# c.execute('INSERT INTO publications (id, year, title, authors, journal, journal2, doi, journal_url, notes) VALUES ({c},{title},{auth},{jour},{jour2},{doi},{url},{note})'.format(c=counter, **d_entry))
-			l = (counter, d_entry['year'], d_entry['title'], d_entry['auth'], d_entry['jour'], d_entry['jour2'], d_entry['doi'], d_entry['doi2'], d_entry['url'], d_entry['url2'], d_entry['note'])
-			c.execute('INSERT INTO publications (id, year, title, authors, journal, journal2, doi, doi2, journal_url, journal_url2, notes) VALUES (?,?,?,?,?,?,?,?,?,?,?)', l)
+			l = (counter, d_entry['ishightlight'], d_entry['year'], d_entry['title'], d_entry['auth'], d_entry['jour'], d_entry['jour2'], d_entry['doi'], d_entry['doi2'], d_entry['url'], d_entry['url2'], d_entry['note'])
+			c.execute('INSERT INTO publications (id, ishightlight, year, title, authors, journal, journal2, doi, doi2, journal_url, journal_url2, notes) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)', l)
 
 			# Save (commit) the changes
 			conn.commit()
@@ -107,7 +114,8 @@ with open(sys.argv[2], "r") as f:
 					'year':'-',
 					'doi':'-',
 					'doi2':'-',
-					'note':'-' } 
+					'note':'-',
+					'ishightlight':0 } 
 
 # here's the schema I'm depositing data into:
 

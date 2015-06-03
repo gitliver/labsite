@@ -64,8 +64,8 @@ def get_people():
 
 def get_pubs():
     """get publication entries from the db"""
-    cur = g.db.execute('select id, year, title, authors, journal, journal2, doi, doi2, journal_url, journal_url2, notes from publications order by id')
-    return [dict(id=row[0], year=row[1], title=row[2], authors=row[3], journal=row[4], journal2=row[5], doi=row[6], doi2=row[7], journal_url=row[8], journal_url2=row[9], notes=row[10]) for row in cur.fetchall()]
+    cur = g.db.execute('select id, year, title, authors, journal, journal2, doi, doi2, journal_url, journal_url2, notes, ishightlight from publications order by id')
+    return [dict(id=row[0], year=row[1], title=row[2], authors=row[3], journal=row[4], journal2=row[5], doi=row[6], doi2=row[7], journal_url=row[8], journal_url2=row[9], notes=row[10], highlight=row[11]) for row in cur.fetchall()]
 
 def get_press():
     """get press entries from the db"""

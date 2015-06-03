@@ -23,6 +23,10 @@
         <div class="ocustom-smallheader">{{ entry.year }}</div>
       {% endif %}
 
+      {% if entry.highlight == 1 %}
+        <div class="ocustom-grey">
+      {% endif %}
+
       <div class="ocustom-pubtitle">
       {{ entry.title|safe }}
       </div>
@@ -55,6 +59,10 @@
       {% if entry.notes != "-" %}
         <span class="ocustom-droidsans"><i>{{ entry.notes|safe }}</i></span>
         <br>
+      {% endif %}
+
+      {% if entry.highlight == 1 %}
+        </div>
       {% endif %}
 
       <br>

@@ -17,6 +17,15 @@
 	background-color: #336699;
 }
 
+.ocustom-grey
+{
+	/*
+	background-color: #F8F8F8;
+	*/
+	background-color: #F0F0F0;
+	padding: 5px; 
+}
+
 .ocustom-bitter
 {
 	/* fonts from https://www.google.com/fonts/ */
