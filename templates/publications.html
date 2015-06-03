@@ -14,6 +14,10 @@
 <!-- Content -->
 {% block content %}
 
+  <input id="toggle-event" type="checkbox" checked data-toggle="toggle" data-on="Show<br>Highlighted" data-off="Show<br>All" data-onstyle="default" data-offstyle="default">
+  <br>
+  <br>
+
   {% for yearpubs in mydata %}
 
     {% for entry in yearpubs %}
@@ -26,53 +30,79 @@
       <!-- if publication highlighted, render in grey -->
       {% if entry.highlight == 1 %}
         <div class="ocustom-grey">
-      {% endif %}
-
-      <div class="ocustom-pubtitle">
-      {{ entry.title|safe }}
-      </div>
-
-      <div class="ocustom-pubauth">
-      {{ entry.authors|safe }}
-      </div>
-
-      <!-- if journal_url not empty, link available; else print journal (no link) -->
-      <div class="ocustom-pubjour">
-      {% if entry.journal_url != "-" %}
-        <a href="{{ entry.journal_url }}">{{ entry.doi }}</a>
       {% else %}
-        {{ entry.journal }}
-      {% endif %}
-      </div>
-
-      <!-- if journal_url 2 not empty, link available; else print journal (no link) -->
-      {% if entry.journal_url2 != "-" %}
-        <div class="ocustom-pubjour">
-        <a href="{{ entry.journal_url2 }}">{{ entry.doi2 }}</a>
-        </div>
-      {% elif entry.journal2 != "-" %}
-        <div class="ocustom-pubjour">
-        {{ entry.journal2 }}
-        </div>
+        <div class="non-highlighted-pub">
       {% endif %}
 
-      <!-- print notes if not set to dash -->
-      {% if entry.notes != "-" %}
-        <span class="ocustom-droidsans"><i>{{ entry.notes|safe }}</i></span>
-        <br>
-      {% endif %}
+        <div class="ocustom-pubtitle">
+        {{ entry.title|safe }}
+        </div>
+
+        <div class="ocustom-pubauth">
+        {{ entry.authors|safe }}
+        </div>
+
+        <!-- if journal_url not empty, link available; else print journal (no link) -->
+        <div class="ocustom-pubjour">
+        {% if entry.journal_url != "-" %}
+          <a href="{{ entry.journal_url }}">{{ entry.doi }}</a>
+        {% else %}
+          {{ entry.journal }}
+        {% endif %}
+        </div>
+
+        <!-- if journal_url 2 not empty, link available; else print journal (no link) -->
+        {% if entry.journal_url2 != "-" %}
+          <div class="ocustom-pubjour">
+          <a href="{{ entry.journal_url2 }}">{{ entry.doi2 }}</a>
+          </div>
+        {% elif entry.journal2 != "-" %}
+          <div class="ocustom-pubjour">
+          {{ entry.journal2 }}
+          </div>
+        {% endif %}
+
+        <!-- print notes if not set to dash -->
+        {% if entry.notes != "-" %}
+          <span class="ocustom-droidsans"><i>{{ entry.notes|safe }}</i></span>
+          <br>
+        {% endif %}
 
       <!-- close publication highlighted tag -->
-      {% if entry.highlight == 1 %}
-        </div>
-      {% endif %}
+      </div>
 
-      <br>
+      <!-- different breaks will be treated differently by the js -->
+      {% if entry.highlight == 1 %}
+        <br>
+      {% else %}
+      	<br class="non-highlighted-pub">
+      {% endif %}
 
     {% else %}
       <em>Unbelievable.  No entries here so far</em>
     {% endfor %}
 
   {% endfor %}
+
+{% endblock %}
+
+<!-- Add more CSS for individual page here -->
+{% block extracss %}
+
+<link rel="stylesheet" href="/static/bootstrap-toggle-master/css/bootstrap-toggle.min.css">
+
+{% endblock %}
+
+<!-- JS for this specific page -->
+{% block extrajs %}
+
+<script src="/static/js/custom.js"></script>
+<script src="/static/bootstrap-toggle-master/js/bootstrap-toggle.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+	  highlightSelected();
+  });
+</script>
 
 {% endblock %}
