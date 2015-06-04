@@ -33,7 +33,6 @@
   
         <!-- print email if not set to dash -->
 	<div class="ocustom-memberemail">
-	<strong>
 
           {% if entry.email != "-" %}
             <a style="color:black;" href="mailto:{{ entry.email }}?Subject=Email%20via%20Lab%20Webpage">{{ entry.email }}</a>
@@ -44,7 +43,6 @@
             &middot; <a href="{{ entry.webpage }}">homepage</a>
           {% endif %}
 
-	</strong>
 	</div>
   
       </div>
