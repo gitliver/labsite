@@ -73,9 +73,12 @@
 	font-weight: normal;
 	line-height: 2em;
 	text-align: center;
-	/*
-	color: #5a5a5a; 
-	*/
+	/* deep red */
+	color: #B40431; 
+}
+
+.ocustom-smallheader:hover
+{
 	/* deep red */
 	color: #B40431; 
 }
@@ -138,7 +141,7 @@
 	font-size: 1.3em;
 	font-weight: normal;
 	line-height: 1.5em;
-	color: black; /* grey */
+	color: black; 
 }
 
 .ocustom-footer-small
@@ -182,7 +185,7 @@
 {
 	font-family: 'Open Sans Condensed', sans-serif;
 	font-size: 1.6em;
-	font-weight: bold;
+	font-weight: 500;
 	line-height: 1.5em;
 	color: black;
 }

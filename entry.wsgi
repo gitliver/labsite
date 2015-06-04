@@ -78,18 +78,32 @@ def get_press():
 def index():
     return render_template('home.html')
 
-@application.route('/publications')
-def pubs():
+@application.route('/publications/')
+@application.route('/publications/<int:myyear>')
+def pubs(myyear=0):
     # db query
     entries = get_pubs()
 
-    # list of lists of entry dicts, segregated by year
+    # default template is publications.html
+    mytemplate='publications.html'
+
+    # initialize 
     entries_year = []
-    for i in reversed(range(1999,date.today().year + 1)):
-        entries_year.append(filter(lambda y: y['year'] == i, entries))
+
+    # if a year in the appropriate range is supplied
+    if (myyear >= 1999 and myyear <= date.today().year):
+        # entries_year is a list of entry dicts for a specific year
+        entries_year = filter(lambda y: y['year'] == myyear, entries)
+	# use a different template (a little bit of a DRY violation but oh well)
+        mytemplate='publications_by_year.html'
+    # else get complete publication list for all years
+    else:
+        # entries_year is a list of lists of entry dicts, segregated by year
+        for i in reversed(range(1999,date.today().year + 1)):
+            entries_year.append(filter(lambda y: y['year'] == i, entries))
 
     try:
-        return render_template('publications.html', mydata=entries_year)
+        return render_template(mytemplate, mydata=entries_year, myyear=myyear)
     except:
         return render_template('error.html')
 
@@ -107,8 +121,8 @@ def press():
 @application.route('/people/<mystatus>')
 def people(mystatus=None):
     entries = get_people()
-    # data struct looks like, e.g.:
-    # entries = [ [{'name': u'joe', 'title': u'xxx'}], [{'name': u'Raul Rabadan', 'title': u'Principal Investigator'}, {'name': u'Hossein Khiabanian', 'title': u'Associate Research Scientist'}, {'name': u'Jiguang Wang', 'title': u'Associate Research Scientist'}, {'name': u'Francesco Abate', 'title': u'Postdoc'}] ]
+    # data struct is a big list of entry dicts which looks something like this:
+    # entries = [{'imagefile': u'raul.jpg', 'name': u'Raul Rabadan', 'iscurrent': 1, 'title': u'Principal Investigator', 'webpage': u'-', 'email': u'rabadan@dbmi.columbia.edu'}, {'imagefile': u'hossein.jpg', 'name': u'Hossein Khiabanian', 'iscurrent': 1, 'title': u'Associate Research Scientists', 'webpage': u'-', 'email': u'hossein@c2b2.columbia.edu'}, {'imagefile': u'jiguang.gif', 'name': u'Jiguang Wang', 'iscurrent': 1, 'title': u'Associate Research Scientists', 'webpage': u'-', 'email': u'-'}, {'imagefile': u'franny.png', 'name': u'Francesco Abate', 'iscurrent': 1, 'title': u'Postdoctoral Researchers', 'webpage': u'-', 'email': u'-'}]
 
     # list of lists of people dicts, segregated by title
     entries_title = []

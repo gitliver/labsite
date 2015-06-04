@@ -24,7 +24,7 @@
 
       {% if loop.first %}
         <!-- print year -->
-        <div class="ocustom-smallheader">{{ entry.year }}</div>
+	<div style="text-align:center;"><a class="ocustom-smallheader" href="/publications/{{ entry.year }}">{{ entry.year }}</a></div>
       {% endif %}
 
       <!-- if publication highlighted, render in grey -->
