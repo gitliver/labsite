@@ -4,6 +4,7 @@ scripts/notes
 dbs/*.db
 dbs/*.txt
 dbs/*.html
+dbs/old
 notes
 static/img
 static/tmp

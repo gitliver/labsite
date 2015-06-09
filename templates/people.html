@@ -35,12 +35,21 @@
 	<div class="ocustom-memberemail">
 
           {% if entry.email != "-" %}
+	    <!--
             <a style="color:black;" href="mailto:{{ entry.email }}?Subject=Email%20via%20Lab%20Webpage">{{ entry.email }}</a>
+	    -->
+	    <!-- people didn't want their emails on the web, so remove -->
+            {{ entry.email }}
+          {% endif %}
+
+	  <!-- if both email and homepage, separate with a dot -->
+          {% if entry.email != "-" and entry.webpage != "-" %}
+            &middot;
           {% endif %}
   
           <!-- print webpage if not set to dash -->
           {% if entry.webpage != "-" %}
-            &middot; <a href="{{ entry.webpage }}">homepage</a>
+            <a href="{{ entry.webpage }}">homepage</a>
           {% endif %}
 
 	</div>
@@ -56,10 +65,17 @@
 
   {% endfor %}
 
+   <br>
+   <br>
+
    <!-- print email if not set to dash -->
-   {% if not mystatus %}
-     <br>
-     <br>
+   {% if mystatus %}
+
+     <div class="ocustom-membertitle">
+       <a href="/people">Current Members of the Rabadan Lab</a>
+     </div>
+
+   {% else %}
 
      <div class="ocustom-membertitle">
        <a href="/people/alum">Alumni of the Rabadan Lab</a>

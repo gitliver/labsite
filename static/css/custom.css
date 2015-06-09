@@ -105,6 +105,28 @@
 	color: #5a5a5a; 
 }
 
+/* front page styles */
+
+.ocustom-frontwelcome
+{
+	font-family: 'Bitter', serif;
+	font-size: 1.5em;
+	font-weight: normal;
+	line-height: 1.8em;
+	color: black !important;
+        background-color: white;
+}
+
+.ocustom-frontblurb
+{
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 1.4em;
+	font-weight: normal;
+	line-height: 1.5em;
+	color: black;
+	background-color: white;
+}
+
 /* publication styles */
 
 .ocustom-pubtitle
