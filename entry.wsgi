@@ -128,7 +128,7 @@ def people(mystatus=None):
     entries_title = []
 
     # titles of current members
-    titles = ["Principal Investigator", "Associate Research Scientists", "Postdoctoral Researchers", "Doctoral Students", "Staff", "Master's Students"]
+    titles = ["Principal Investigator", "Associate Research Scientists", "Postdoctoral Researchers", "Doctoral Students", "Staff", "Master's Students", "Undergraduates"]
     # titles of alumni
     if (mystatus == "alum"):
         titles = ["Alumni"]
@@ -151,6 +151,10 @@ def courses():
 @application.route('/research')
 def research():
     return render_template('research.html')
+
+@application.route('/researchstatement')
+def researchstatement():
+    return render_template('researchstatement.html')
 
 @application.route('/software')
 def softw():
