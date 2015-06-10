@@ -211,3 +211,18 @@
 	line-height: 1.5em;
 	color: black;
 }
+
+/* research statement */
+
+.image-left-pad
+{
+	margin-top: 10px;
+	margin-left: 10px;
+	border: 2px solid rgb(200,200,200);
+}
+
+.float-right
+{
+	display: inline;
+	float: right;
+}
