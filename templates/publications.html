@@ -14,9 +14,9 @@
 <!-- Content -->
 {% block content %}
 
-  <input id="toggle-event" type="checkbox" checked data-toggle="toggle" data-on="Show<br>Highlighted" data-off="Show<br>All" data-onstyle="default" data-offstyle="default">
-  <br>
-  <br>
+  <button id="hide-show-pubs" style="color: black; cursor: pointer;"><b>SHOW ALL PUBLICATIONS</b></button>
+
+  <div style="text-align:center;" class="hide-on-click ocustom-smallheader">Selected Publications</div>
 
   {% for yearpubs in mydata %}
 
@@ -24,17 +24,21 @@
 
       {% if loop.first %}
         <!-- print year -->
-	<div style="text-align:center;"><a class="ocustom-smallheader" href="/publications/{{ entry.year }}">{{ entry.year }}</a></div>
+	<div style="text-align:center;"><a class="non-highlighted-pub ocustom-smallheader" style="display: none;" href="/publications/{{ entry.year }}">{{ entry.year }}</a></div>
       {% endif %}
 
-      <!-- if publication highlighted, render in grey -->
+      <!-- if publication highlighted, use different class -->
       {% if entry.highlight == 1 %}
-        <div class="ocustom-grey">
+        <div class="highlighted-pub">
+        <!-- <div class="ocustom-grey"> -->
       {% else %}
-        <div class="non-highlighted-pub">
+        <div class="non-highlighted-pub" style="display: none;">
       {% endif %}
 
         <div class="ocustom-pubtitle">
+         <!--
+	 <span style="color: #336699;" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+	 -->
         {{ entry.title|safe }}
         </div>
 

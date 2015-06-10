@@ -29,21 +29,31 @@ function highlightSelected()
 	var myFlag = 0;
 	var mySpeed = 500;
 
-	$('#toggle-event').change(function() {
+	$(".non-highlighted-pub").hide();
+
+	$('#hide-show-pubs').click(function() {
 		if ( myFlag == 0 ) 
 		{
-			$(".non-highlighted-pub").slideUp();
-			$(".ocustom-smallheader").slideUp();
-			/*
-			$(".non-highlighted-pub").hide();
-			$(".ocustom-smallheader").hide();
-			*/
+			// hide "selected" text
+			$(".hide-on-click").hide();
+			// show non-highlighted publications (i.e., all showing after click)
+			$(".non-highlighted-pub").show("slow");
+			$(".non-highlighted-pub").css('visibility','visible');
+			// change text
+			$('#hide-show-pubs').html("<b>SHOW SELECTED PUBLICATIONS</b>")
+			// toggle flag
 			myFlag = 1;
 		} 
 		else 
 		{
-			$(".ocustom-smallheader").show("slow");
-			$(".non-highlighted-pub").show("slow");
+			// slow "selected" text
+			$(".hide-on-click").show("slow");
+			// hide non-highlighted publications
+			$(".non-highlighted-pub").slideUp();
+			$(".non-highlighted-pub").css('visibility','hidden');
+			// change text
+			$('#hide-show-pubs').html("<b>SHOW ALL PUBLICATIONS</b>")
+			// toggle flag
 			myFlag = 0;
 		}
 	})
