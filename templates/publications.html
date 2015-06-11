@@ -14,9 +14,9 @@
 <!-- Content -->
 {% block content %}
 
-  <button id="hide-show-pubs" style="color: black; cursor: pointer;"><b>SHOW ALL PUBLICATIONS</b></button>
+  <button id="hide-show-pubs" style="color: black; cursor: pointer;"><b>SHOW SELECTED PUBLICATIONS</b></button>
 
-  <div style="text-align:center;" class="hide-on-click ocustom-smallheader">Selected Publications</div>
+  <div style="text-align:center; visibility: hidden;" class="show-on-click ocustom-smallheader">Selected Publications</div>
 
   {% for yearpubs in mydata %}
 
@@ -24,7 +24,7 @@
 
       {% if loop.first %}
         <!-- print year -->
-	<div style="text-align:center;"><a class="non-highlighted-pub ocustom-smallheader" style="display: none;" href="/publications/{{ entry.year }}">{{ entry.year }}</a></div>
+	<div style="text-align:center;"><a class="non-highlighted-pub ocustom-smallheader" href="/publications/{{ entry.year }}">{{ entry.year }}</a></div>
       {% endif %}
 
       <!-- if publication highlighted, use different class -->
@@ -32,13 +32,13 @@
         <div class="highlighted-pub">
         <!-- <div class="ocustom-grey"> -->
       {% else %}
-        <div class="non-highlighted-pub" style="display: none;">
+        <div class="non-highlighted-pub">
       {% endif %}
 
         <div class="ocustom-pubtitle">
-         <!--
-	 <span style="color: #336699;" class="glyphicon glyphicon-star" aria-hidden="true"></span>
-	 -->
+          {% if entry.highlight == 1 %}
+	    <span style="color: #336699;" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+          {% endif %}
         {{ entry.title|safe }}
         </div>
 

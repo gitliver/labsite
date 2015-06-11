@@ -26,16 +26,21 @@ function useQtips()
 function highlightSelected()
 {
 	// flag for toggling
-	var myFlag = 0;
+	var myFlag = 1;
 	var mySpeed = 500;
 
-	$(".non-highlighted-pub").hide();
+	/* 
+	using this overkill (hide + the visibility property) to prevent 
+	the hidden element from flashing quickly on page load
+	*/
+	$(".show-on-click").hide();
+	$(".show-on-click").css('visibility','visible');
 
 	$('#hide-show-pubs').click(function() {
 		if ( myFlag == 0 ) 
 		{
 			// hide "selected" text
-			$(".hide-on-click").hide();
+			$(".show-on-click").hide();
 			// show non-highlighted publications (i.e., all showing after click)
 			$(".non-highlighted-pub").show("slow");
 			$(".non-highlighted-pub").css('visibility','visible');
@@ -46,8 +51,8 @@ function highlightSelected()
 		} 
 		else 
 		{
-			// slow "selected" text
-			$(".hide-on-click").show("slow");
+			// show "selected" text
+			$(".show-on-click").show("slow");
 			// hide non-highlighted publications
 			$(".non-highlighted-pub").slideUp();
 			$(".non-highlighted-pub").css('visibility','hidden');
