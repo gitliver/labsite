@@ -226,3 +226,19 @@
 	display: inline;
 	float: right;
 }
+
+/* software */
+
+.image-float-left
+{
+	margin: 2px 10px 0px 2px;
+	display: inline;
+	float: left;
+}
+
+.image-float-right
+{
+	margin: 5px;
+	display: inline;
+	float: right;
+}

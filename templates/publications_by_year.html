@@ -18,14 +18,12 @@
 
 {% for entry in mydata %}
 
-  <!-- if publication highlighted, render in grey -->
-  {% if entry.highlight == 1 %}
-  <div class="ocustom-grey">
-  {% else %}
   <div class="non-highlighted-pub">
-  {% endif %}
   
   <div class="ocustom-pubtitle">
+  {% if entry.highlight == 1 %}
+    <span style="color: #336699;" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+  {% endif %}
   {{ entry.title|safe }}
   </div>
   
@@ -59,7 +57,7 @@
     <br>
   {% endif %}
   
-  <!-- close publication highlighted tag -->
+  <!-- close publication div tag -->
   </div>
   
   <br>

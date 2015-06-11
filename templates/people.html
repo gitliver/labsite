@@ -27,7 +27,9 @@
       <div class="col-md-10">
  
         <div class="ocustom-membertitle">{{ entry.name }}</div>
-        <img class="memberimage" src="/static/img/people/{{ entry.imagefile }}" alt="image" width="116">
+        {% if entry.imagefile != "-" %}
+          <img class="memberimage" src="/static/img/people/{{ entry.imagefile }}" alt="image" width="116">
+        {% endif %}
   
 	<div class="ocustom-memberbio">{{ entry.bio|safe }}</div>
   
@@ -36,7 +38,7 @@
 
           {% if entry.email != "-" %}
 	    <!--
-            <a style="color:black;" href="mailto:{{ entry.email }}?Subject=Email%20via%20Lab%20Webpage">{{ entry.email }}</a>
+            <a style="color:black;" href="mailto:{{ entry.email }}?subject=email%20via%20lab%20webpage">{{ entry.email }}</a>
 	    -->
 	    <!-- people didn't want their emails on the web, so remove -->
             {{ entry.email }}
