@@ -14,25 +14,15 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
 from contextlib import closing
 from datetime import date
 
-# configuration
-# DATABASE = '/tmp/flaskr.db'
-DATABASE=os.path.join(os.getcwd(), 'labsite/dbs/labsite.db')
-# Never leave debug mode activated in a production system, because it will allow users to execute code on the server!
-DEBUG = False
-SECRET_KEY = 'development key'
-USERNAME = 'admin'
-PASSWORD = 'default'
-
 # print statements will show up in the uWSGI logs
 # print("debug")
 # print(DATABASE)
 
 # create our application
 application = Flask(__name__)
-application.config.from_object(__name__)
-# if set an environment variable called FLASKR_SETTINGS to specify a config file 
-# to be loaded which will then override the default values
-# application.config.from_envvar('FLASKR_SETTINGS', silent=True)
+
+# Load the configuration from the instance folder
+application.config.from_pyfile(os.path.join(os.getcwd(), 'labsite/config.py'))
 
 # --- db functions --- #
 
