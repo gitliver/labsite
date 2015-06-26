@@ -149,5 +149,6 @@ def softw():
 def contact():
     return render_template('contact.html')
 
-if __name__ == "__main__":
-    application.run()
+@application.route('/raegyptiacus')
+def bat():
+    return render_template('raegyptiacus.html')
