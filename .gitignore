@@ -7,7 +7,7 @@ dbs/*.txt
 dbs/*.html
 dbs/old
 notes
-static/img
-static/tmp
-static/*.zip
-static/favicon.ico
+myapp/static/img
+myapp/static/tmp
+myapp/static/*.zip
+myapp/static/favicon.ico

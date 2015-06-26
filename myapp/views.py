@@ -13,16 +13,11 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
 from contextlib import closing
 from datetime import date
+from myapp import application
 
 # print statements will show up in the uWSGI logs
 # print("debug")
 # print(DATABASE)
-
-# create our application
-application = Flask(__name__)
-
-# Load the configuration from the instance folder
-application.config.from_pyfile(os.path.join(os.getcwd(), 'labsite/config.py'))
 
 # --- db functions --- #
 
