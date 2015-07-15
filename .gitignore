@@ -5,6 +5,7 @@ scripts/notes
 dbs/*.db
 dbs/*.txt
 dbs/*.html
+dbs/*.tsv
 dbs/old
 notes
 myapp/static/img
