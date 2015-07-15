@@ -113,7 +113,7 @@ def people(mystatus=None):
     entries_title = []
 
     # titles of current members
-    titles = ["Principal Investigator", "Associate Research Scientists", "Postdoctoral Researchers", "Doctoral Students", "Staff", "Master's Students", "Undergraduates"]
+    titles = ["Principal Investigator", "Associate Research Scientists", "Postdoctoral Researchers", "Doctoral Students", "Staff", "Master's Students", "Undergraduates", "Interns"]
     # titles of alumni
     if (mystatus == "alum"):
         titles = ["Alumni"]
