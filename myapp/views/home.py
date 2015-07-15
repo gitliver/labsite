@@ -7,17 +7,15 @@
     borrowing from Armin Ronacher's https://github.com/mitsuhiko/flask/tree/master/examples/flaskr
 """
 
-import os
+# import os
+# from contextlib import closing
 import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, \
-     render_template, flash
-from contextlib import closing
+     render_template, flash, Blueprint
 from datetime import date
 from myapp import application
 
-# print statements will show up in the uWSGI logs
-# print("debug")
-# print(DATABASE)
+home = Blueprint('home', __name__)
 
 # --- db functions --- #
 
@@ -25,7 +23,7 @@ def connect_db():
     """Connects to the specific database."""
     return sqlite3.connect(application.config['DATABASE'])
 
-@application.before_request
+@home.before_request
 def before_request():
     # without the try/except block, nginx will implode if there's an exception
     try:
@@ -33,7 +31,7 @@ def before_request():
     except:
 	print("Doh! Error connecting to db")
 
-@application.teardown_request
+@home.teardown_request
 def teardown_request(exception):
     try:
         db = getattr(g, 'db', None)
@@ -59,12 +57,12 @@ def get_press():
 
 # --- URL routing --- #
 
-@application.route('/')
+@home.route('/')
 def index():
     return render_template('home.html')
 
-@application.route('/publications/')
-@application.route('/publications/<int:myyear>')
+@home.route('/publications/')
+@home.route('/publications/<int:myyear>')
 def pubs(myyear=0):
     # db query
     entries = get_pubs()
@@ -92,7 +90,7 @@ def pubs(myyear=0):
     except:
         return render_template('error.html')
 
-@application.route('/press')
+@home.route('/press')
 def press():
     # db query
     entries = get_press()
@@ -102,8 +100,8 @@ def press():
     except:
         return render_template('error.html')
 
-@application.route('/people')
-@application.route('/people/<mystatus>')
+@home.route('/people')
+@home.route('/people/<mystatus>')
 def people(mystatus=None):
     entries = get_people()
     # data struct is a big list of entry dicts which looks something like this:
@@ -129,26 +127,26 @@ def people(mystatus=None):
     except:
         return render_template('error.html')
 
-@application.route('/courses')
+@home.route('/courses')
 def courses():
     return render_template('courses.html')
 
-@application.route('/research')
+@home.route('/research')
 def research():
     return render_template('research.html')
 
-@application.route('/researchstatement')
+@home.route('/researchstatement')
 def researchstatement():
     return render_template('researchstatement.html')
 
-@application.route('/software')
+@home.route('/software')
 def softw():
     return render_template('software.html')
 
-@application.route('/contact')
+@home.route('/contact')
 def contact():
     return render_template('contact.html')
 
-@application.route('/raegyptiacus')
+@home.route('/raegyptiacus')
 def bat():
     return render_template('raegyptiacus.html')

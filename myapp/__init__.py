@@ -14,4 +14,11 @@ application = Flask(__name__)
 # Load the configuration settings
 application.config.from_object('myapp.default_settings')
 
-import myapp.views
+from .views.home import home 
+from .views.motor import motor 
+# main website:
+application.register_blueprint(home)
+# motor neuron app:
+application.register_blueprint(motor)
+
+# import myapp.views
