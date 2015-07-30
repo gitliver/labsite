@@ -1,1 +1,29 @@
-WTF
+{% extends "layout.html" %}
+
+{% block title %}Motor Neuron{% endblock %}
+
+<!-- Header -->
+{% block header2 %}
+
+<br><br><br><br>
+<div class="ocustom-bigheader">Motor Neuron</div>
+<br>
+
+{% endblock %}
+
+<!-- Content -->
+{% block content %}
+
+<form action="" method="post" name="login">
+	{{ form.hidden_tag() }}
+
+	<p class="lead">
+		Please enter your gene:<br>
+		<small>(Example: <i>Pou5f1</i>)</small><br>
+		{{ form.geneid(size=25) }}<br>
+	</p>
+
+	<p class="lead"><input type="submit" value="Submit"></p>
+</form>
+
+{% endblock %}

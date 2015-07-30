@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}Motor Neuron Output{% endblock %}
+
+<!-- Header -->
+{% block header2 %}
+
+<br><br><br><br>
+<div class="ocustom-bigheader">Motor Neuron Output</div>
+<br>
+
+{% endblock %}
+
+<!-- Content -->
+{% block content %}
+
+<p class="lead">
+<b>Gene: {{geneinfo.Gene}}</b><br>
+Cells: {{geneinfo.Cells}}<br>
+Mean: {{geneinfo.Mean}}<br>
+Min: {{geneinfo.Min}}<br>
+Max: {{geneinfo.Max}}<br>
+Connectivity: {{geneinfo.Connectivity}}<br>
+p_value: {{geneinfo.p_value}}<br>
+BH_p_value: {{geneinfo.BH_p_value}}<br>
+Centroid: {{geneinfo.Centroid}}<br>
+Dispersion: {{geneinfo.Dispersion}}<br>
+RNA_binding: {{geneinfo.RNA_binding}}<br>
+Splicing: {{geneinfo.Splicing}}<br>
+Surface: {{geneinfo.Surface}}<br>
+Transcription: {{geneinfo.Transcription}}<br>
+</p>
+
+{% endblock %}
