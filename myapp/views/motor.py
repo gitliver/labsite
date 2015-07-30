@@ -7,7 +7,7 @@
     borrowing from Armin Ronacher's https://github.com/mitsuhiko/flask/tree/master/examples/flaskr
 """
 
-# import os
+import os
 # from contextlib import closing
 import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, \
@@ -52,10 +52,15 @@ def index():
     if form.validate_on_submit():
 	t=(form.geneid.data,)
 	try:
+		# extract info from db
 		cur = g.db.execute('select Gene, Cells, Mean, Min, Max, Connectivity, p_value, BH_p_value, Centroid, Dispersion, RNA_binding, Splicing, Surface, Transcription FROM motor WHERE Gene=?', t)
 		x = cur.fetchone()
 		geneinfo = {'Gene': x[0], 'Cells': x[1], 'Mean': x[2], 'Min': x[3], 'Max': x[4], 'Connectivity': x[5], 'p_value': x[6], 'BH_p_value': x[7], 'Centroid': x[8], 'Dispersion': x[9], 'RNA_binding': x[10], 'Splicing': x[11], 'Surface': x[12], 'Transcription': x[13]}
-		return render_template('motorout.html', geneinfo=geneinfo)
+
+		# get motor img path
+		mopath = '/static/motorimages/' + str(form.geneid.data)[0] + '/' + str(form.geneid.data)
+
+		return render_template('motorout.html', geneinfo=geneinfo, mopath=mopath, tmp='asdf')
 	except:
 		return render_template('error2.html')
 

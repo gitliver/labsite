@@ -6,7 +6,7 @@ import sys, os
 scripts = os.path.dirname(os.path.realpath(__file__)) 
 
 # direct Flask to use this virtualenv (all its packages)
-project_dir = os.path.abspath(scripts + '/../../private/mysite')
+project_dir = os.path.abspath(scripts + '/../private')
 activate_this = '%s/bin/activate_this.py' % project_dir
 execfile(activate_this, dict(__file__=activate_this))
 sys.path.append(project_dir)
