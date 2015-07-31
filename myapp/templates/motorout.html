@@ -5,8 +5,8 @@
 <!-- Header -->
 {% block header2 %}
 
-<br><br><br><br>
-<div class="ocustom-bigheader">Motor Neuron Output</div>
+<br><br><br><br><br><br>
+<p class="lead" style="color: black"><b>Topological Data Analysis of <i>In Vitro</i> Motor Neuron Differentiation from mESCs</b></p>
 <br>
 
 {% endblock %}
@@ -14,26 +14,66 @@
 <!-- Content -->
 {% block content %}
 
-<p class="lead">
-<b>Gene: {{geneinfo.Gene}}</b><br>
-Cells: {{geneinfo.Cells}}<br>
-Mean: {{geneinfo.Mean}}<br>
-Min: {{geneinfo.Min}}<br>
-Max: {{geneinfo.Max}}<br>
-Connectivity: {{geneinfo.Connectivity}}<br>
-p_value: {{geneinfo.p_value}}<br>
-BH_p_value: {{geneinfo.BH_p_value}}<br>
-Centroid: {{geneinfo.Centroid}}<br>
-Dispersion: {{geneinfo.Dispersion}}<br>
-RNA_binding: {{geneinfo.RNA_binding}}<br>
-Splicing: {{geneinfo.Splicing}}<br>
-Surface: {{geneinfo.Surface}}<br>
-Transcription: {{geneinfo.Transcription}}<br>
-</p>
+<div class="row">
 
-<img src="{{mopath}}/output1.jpg" alt="image">
-<img src="{{mopath}}/output2.jpg" alt="image">
-<img src="{{mopath}}/output3.jpg" alt="image">
-<img src="{{mopath}}/output4.jpg" alt="image">
+  <div class="col-md-4">
+
+    <table class="table table-striped table-bordered" style="color: black; font-size: 14px; height: 50%;">
+      <tr><td>Gene</td><td>{{geneinfo.Gene}}</td></tr>
+      <tr><td>Cells</td><td>{{geneinfo.Cells}}</td></tr>
+      <tr><td>Mean</td><td>{{geneinfo.Mean}}</td></tr>
+      <tr><td>Min</td><td>{{geneinfo.Min}}</td></tr>
+      <tr><td>Max</td><td>{{geneinfo.Max}}</td></tr>
+      <tr><td>Connectivity</td><td>{{geneinfo.Connectivity}}</td></tr>
+      <tr><td><i>p</i>-value</td><td>{{geneinfo.p_value}}</td></tr>
+      <tr><td><i>q</i>-value (BH)</td><td>{{geneinfo.BH_p_value}}</td></tr>
+      <tr><td>Centroid</td><td>{{geneinfo.Centroid}}</td></tr>
+      <tr><td>Dispersion</td><td>{{geneinfo.Dispersion}}</td></tr>
+      <tr><td>RNA Binding</td><td>{{geneinfo.RNA_binding}}</td></tr>
+      <tr><td>Splicing Factor</td><td>{{geneinfo.Splicing}}</td></tr>
+      <tr><td>Surface Marker</td><td>{{geneinfo.Surface}}</td></tr>
+      <tr><td>Regulation of Transcription</td><td>{{geneinfo.Transcription}}</td></tr>
+    </table>
+    
+  </div>
+
+</div>
+
+<br>
+
+<div class="row">
+
+  <div class="col-md-4">
+  </div>
+
+  <div class="col-md-4">
+    <img src="{{mopath}}/output1.jpg" alt="image" width="400">
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-md-4">
+    <div style="margin-left: 50px;">Zoom of progenitor region:</div>
+    <img src="{{mopath}}/output2.jpg" alt="image" width="400">
+  </div>
+
+  <div class="col-md-4">
+    <div style="margin-left: 50px;">Zoom of post-mitotic region:</div>
+    <img src="{{mopath}}/output3.jpg" alt="image" width="400">
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-md-8">
+    <div style="margin-left: 50px;">Reconstructed expression timeline:</div>
+    <img src="{{mopath}}/output4.jpg" alt="image" width="800">
+    <div style="text-align: center;"><small>day</small></div>
+  </div>
+
+</div>
 
 {% endblock %}

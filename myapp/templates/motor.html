@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 
-{% block title %}Motor Neuron{% endblock %}
+{% block title %}Topological Data Analysis of In Vitro Motor Neuron Differentiation from mESCs{% endblock %}
 
 <!-- Header -->
 {% block header2 %}
 
-<br><br><br><br>
-<div class="ocustom-bigheader">Motor Neuron</div>
+<br><br><br><br><br><br>
+<p class="lead" style="color: black"><b>Topological Data Analysis of <i>In Vitro</i> Motor Neuron Differentiation from mESCs</b></p>
 <br>
 
 {% endblock %}
@@ -14,16 +14,74 @@
 <!-- Content -->
 {% block content %}
 
-<form action="" method="post" name="login">
-	{{ form.hidden_tag() }}
+<div class="row">
 
-	<p class="lead">
-		Please enter your gene:<br>
-		<small>(Example: <i>Pou5f1</i> or <i>Etv5</i>)</small><br>
-		{{ form.geneid(size=20) }}<br>
-	</p>
+  <div class="col-md-4">
 
-	<p class="lead"><input type="submit" value="Submit"></p>
-</form>
+    <p style="color: black">
+    The directed differentiation of murine embryonic stem cells into motor neurons enables in vitro modeling of neurodegenerative diseases and rational approaches to regenerative therapies. We differentiated murine embryonic stem cells into motor neurons and, using modifications to the CEL-Seq approach, we generated libraries from 440 single cells sampled across days two through six of differentiation<sup>1</sup>. These time points span the transition from totipotency to post-mitotic fate. Single cell RNA-Seq read counts were analyzed using topological methods. Through this webpage you can explore some of the results of this analysis.
+    </p>
+
+  </div>
+
+  <div class="col-md-4">
+    <img class="featurette-image img-responsive center-block" src="/static/img/other/mn_600.jpg" alt="image" width="300">
+  </div>
+
+</div>
+
+<br>
+
+<div class="row">
+
+  <div class="col-md-4">
+
+    <p style="color: black">
+    This figure contains a topological representation of the data, colored by time point. Each node represents a set of single cells with related transcriptional programs. The same cell may appear in several nodes. Nodes that have one or more cells in common are connected through an edge. Hence, connected nodes are also transcriptionally related. The resulting graph is a topological representation, namely position and distances have no meaning, it only matters how different nodes are connected.
+    </p>
+
+  </div>
+
+  <div class="col-md-4">
+    <img class="featurette-image img-responsive center-block" src="/static/img/other/day.jpg" alt="image" width="300">
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-md-4">
+
+    <p style="color: black">
+    Using the following form, you can color the above topological representation by expression of any gene (red: high values; blue: low values). Several statistics associated to the gene are also displayed. See [1] for more details on the experimental setting, analysis and statistics.
+    </p>
+
+    <br>
+
+    <form action="" method="post" name="login">
+    	{{ form.hidden_tag() }}
+    
+    	<p style="color: #336699">
+		<b>Please enter your gene:</b><br>
+    		<small>(Example: <i>Pou5f1</i> or <i>Etv5</i>)</small><br>
+    		{{ form.geneid(size=20) }}<br>
+    	</p>
+    
+    	<p><input type="submit" value="Submit"></p>
+    </form>
+
+    <br>
+
+   <small>
+   <sup>1</sup> <strong class="ocustom-bitter">Unsupervised Detection of Cellular Fate.</strong>
+   <br>
+   Abbas H. Rizvi, Pablo Camara, Elena K. Kandror, Thomas J. Roberts, Tom Maniatis, and Raul Rabadan.
+   <br>
+   2015 <i>In preparation</i>.<br>
+   </small>
+
+  </div>
+
+</div>
 
 {% endblock %}
