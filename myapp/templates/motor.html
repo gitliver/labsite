@@ -58,6 +58,18 @@
 
     <br>
 
+    <small>
+    <sup>1</sup> <strong class="ocustom-bitter">Unsupervised Detection of Cellular Fate.</strong>
+    <br>
+    Abbas H. Rizvi, Pablo Camara, Elena K. Kandror, Thomas J. Roberts, Tom Maniatis, and Raul Rabadan.
+    <br>
+    2015 <i>In preparation</i>.<br>
+    </small>
+
+    <br>
+
+    <!-- try Flask wtforms -->
+    <!--
     <form action="" method="post" name="login">
     	{{ form.hidden_tag() }}
     
@@ -69,19 +81,116 @@
     
     	<p><input type="submit" value="Submit"></p>
     </form>
+    -->
+
+    <p style="color: #336699">
+        <b>Please enter your gene:</b><br>
+    	<small>(Example: <i>Pou5f1</i> or <i>Etv5</i>)</small><br>
+        <input type=text size=15 name=geneinput>
+    </p>
 
     <br>
+    <a href=# style="color: red" id=getinput>submit</a>
+    <br>
+    <br>
 
-   <small>
-   <sup>1</sup> <strong class="ocustom-bitter">Unsupervised Detection of Cellular Fate.</strong>
-   <br>
-   Abbas H. Rizvi, Pablo Camara, Elena K. Kandror, Thomas J. Roberts, Tom Maniatis, and Raul Rabadan.
-   <br>
-   2015 <i>In preparation</i>.<br>
-   </small>
+    <!-- http://flask.pocoo.org/docs/0.10/patterns/jquery/ -->
+    <!--
+    <h4>Testing - Switch to AJAX Call</h4>
+    <p>
+      <input type=text size=5 name=a> + <input type=text size=5 name=b> = <span id=result>?</span>
+    </p>
+    <a href=# id=calculate>calculate server side</a>
+    -->
 
   </div>
 
 </div>
+
+<!-- JS writes into this tag -->
+<div id=geneoutput></div>
+
+{% endblock %}
+
+{% block extrajs %}
+
+<script type=text/javascript>
+
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  // console.log("Testing");
+  // console.log($SCRIPT_ROOT);
+
+  // simple addition following the example of Flask with Ajax and Jquery
+  // http://flask.pocoo.org/docs/0.10/patterns/jquery/
+  /*
+  $(function() {
+    $('a#calculate').bind('click', function() {
+      $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
+        a: $('input[name="a"]').val(),
+        b: $('input[name="b"]').val()
+      }, function(data) {
+        $("#result").text(data.result);
+      });
+      return false;
+    });
+  });
+  */
+
+  // need to sanitize input?
+  // this is a bit of a mess! 
+
+  $(function() {
+    $('a#getinput').bind('click', function() {
+      $.getJSON($SCRIPT_ROOT + '/_get_gene_result', {
+        mygene: $('input[name="geneinput"]').val()
+      }, function(data) {
+        $("#geneoutput").html(
+              '<div class="row">' + 
+                '<div class="col-md-4">' + 
+                  '<div style="margin-left: 50px;">' + 
+		    'Gene: <b>' + data.Gene + '</b><br>' + 
+		    'Cells: <b>' + data.Cells + '</b><br>' +
+		    'Mean: <b>' + data.Mean + '</b><br>' +
+		    'Min: <b>' + data.Min + '</b><br>' +
+		    'Max: <b>' + data.Max + '</b><br>' +
+		    'Connectivity: <b>' + data.Connectivity + '</b><br>' + 
+		    '<i>p</i>-value: <b>' + data.p_value + '</b><br>' +
+		    '<i>q</i>-value (BH): <b>' + data.BH_p_value + '</b><br>' + 
+		    'Centroid: <b>' + data.Centroid + '</b><br>' +
+		    'Dispersion: <b>' + data.Dispersion + '</b><br>' +
+		    'RNA binding: <b>' + data.RNA_binding + '</b><br>' +
+		    'Splicing Factor: <b>' + data.Splicing + '</b><br>' +
+		    'Surface Marker: <b>' + data.Surface + '</b><br>' +
+		    'Regulation of Transcription: <b>' + data.Transcription + '</b><br>' + 
+                  '</div>' + 
+                '</div>' + 
+                '<div class="col-md-4">' + 
+                  '<img src="' + data.img1 + '" alt="image" width="400">' + 
+                '</div>' + 
+              '</div>' + 
+              '<div class="row">' + 
+                '<div class="col-md-4">' + 
+    	          '<div style="margin-left: 50px;">Zoom of progenitor region:</div>' + 
+                  '<img src="' + data.img2 + '" alt="image" width="400">' + 
+                '</div>' + 
+                '<div class="col-md-4">' + 
+                  '<div style="margin-left: 50px;">Zoom of post-mitotic region:</div>' + 
+                  '<img src="' + data.img3 + '" alt="image" width="400">' + 
+                '</div>' + 
+              '</div>' + 
+              '<div class="row">' + 
+                '<div class="col-md-8">' + 
+                  '<div style="margin-left: 50px;">Reconstructed expression timeline:</div>' + 
+                  '<img src="' + data.img4 + '" alt="image" width="800">' + 
+                  '<div style="text-align: center;"><small>day</small></div>' + 
+                '</div>' + 
+              '</div>'
+	);
+      });
+      return false;
+    });
+  });
+
+</script>
 
 {% endblock %}

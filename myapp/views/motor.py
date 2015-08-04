@@ -10,8 +10,9 @@
 import os
 # from contextlib import closing
 import sqlite3
+import traceback
 from flask import Flask, request, session, g, redirect, url_for, abort, \
-     render_template, flash, Blueprint
+     render_template, flash, Blueprint, jsonify
 from myapp import application
 from myapp.forms.geneform import GeneForm 
 
@@ -43,25 +44,98 @@ def teardown_request(exception):
 
 # --- URL routing --- #
 
+# this is using the wtforms machinery and a full page refresh
+# switch instead to AJAX call (see below)
+if 0:
+	@motor.route('/motor_neurons', methods=['GET', 'POST'])
+	def index():
+	    """motor neuron app built for Pablo"""
+	    form = GeneForm()
+	    if form.validate_on_submit():
+		t=(form.geneid.data,)
+		try:
+			# extract info from db
+			cur = g.db.execute('select Gene, Cells, Mean, Min, Max, Connectivity, p_value, BH_p_value, Centroid, Dispersion, RNA_binding, Splicing, Surface, Transcription FROM motor WHERE Gene=?', t)
+			x = cur.fetchone()
+			geneinfo = {'Gene': x[0], 'Cells': x[1], 'Mean': x[2], 'Min': x[3], 'Max': x[4], 'Connectivity': x[5], 'p_value': x[6], 'BH_p_value': x[7], 'Centroid': x[8], 'Dispersion': x[9], 'RNA_binding': x[10], 'Splicing': x[11], 'Surface': x[12], 'Transcription': x[13]}
+
+			# get motor img path
+			mopath = '/static/motorimages/' + str(form.geneid.data)[0] + '/' + str(form.geneid.data)
+
+			return render_template('motorout.html', geneinfo=geneinfo, mopath=mopath, tmp='asdf')
+		except:
+			return render_template('error2.html')
+
+	    return render_template('motor.html', form=form)
+
 @motor.route('/motor_neurons', methods=['GET', 'POST'])
 def index():
     """motor neuron app built for Pablo"""
-    # cur = g.db.execute('select iscurrent, name, title, bio, email, imagefile, webpage from people order by id')
-    # return [dict(iscurrent=row[0], name=row[1], title=row[2], bio=row[3], email=row[4], imagefile=row[5], webpage=row[6]) for row in cur.fetchall()]
     form = GeneForm()
-    if form.validate_on_submit():
-	t=(form.geneid.data,)
+
+    return render_template('motor.html', form=form)
+
+@motor.route('/_get_gene_result')
+def get_result():
+	mygene = request.args.get('mygene', "Not Found")
+	t=(mygene,)
+	geneinfo = {}
 	try:
 		# extract info from db
 		cur = g.db.execute('select Gene, Cells, Mean, Min, Max, Connectivity, p_value, BH_p_value, Centroid, Dispersion, RNA_binding, Splicing, Surface, Transcription FROM motor WHERE Gene=?', t)
 		x = cur.fetchone()
-		geneinfo = {'Gene': x[0], 'Cells': x[1], 'Mean': x[2], 'Min': x[3], 'Max': x[4], 'Connectivity': x[5], 'p_value': x[6], 'BH_p_value': x[7], 'Centroid': x[8], 'Dispersion': x[9], 'RNA_binding': x[10], 'Splicing': x[11], 'Surface': x[12], 'Transcription': x[13]}
+		geneinfo = {
+			'Gene': x[0], 
+			'Cells': x[1], 
+			'Mean': x[2], 
+			'Min': x[3], 
+			'Max': x[4], 
+			'Connectivity': x[5], 
+			'p_value': x[6], 
+			'BH_p_value': x[7], 
+			'Centroid': x[8], 
+			'Dispersion': x[9], 
+			'RNA_binding': x[10],
+			'Splicing': x[11], 
+			'Surface': x[12], 
+			'Transcription': x[13]
+		}
 
 		# get motor img path
-		mopath = '/static/motorimages/' + str(form.geneid.data)[0] + '/' + str(form.geneid.data)
+		mopath = '/static/motorimages/' + geneinfo['Gene'][0] + '/' + geneinfo['Gene']
+		# add img paths to geneinfo dict
+		geneinfo['img1'] = mopath + "/output1.jpg"
+		geneinfo['img2'] = mopath + "/output2.jpg"
+		geneinfo['img3'] = mopath + "/output3.jpg"
+		geneinfo['img4'] = mopath + "/output4.jpg"
 
-		return render_template('motorout.html', geneinfo=geneinfo, mopath=mopath, tmp='asdf')
 	except:
-		return render_template('error2.html')
+		geneinfo = {
+			'Gene': 'not found',
+			'Cells': 'not found',
+			'Mean': 'not found',
+			'Min': 'not found',
+			'Max': 'not found',
+			'Connectivity': 'not found',
+			'p_value': 'not found',
+			'BH_p_value': 'not found',
+			'Centroid': 'not found',
+			'Dispersion': 'not found',
+			'RNA_binding': 'not found',
+			'Splicing': 'not found',
+			'Surface': 'not found',
+			'Transcription': 'not found',
+			'img1': '/static/motorimages/notfound.480.jpg',
+			'img2': '/static/motorimages/notfound.480.jpg',
+			'img3': '/static/motorimages/notfound.480.jpg',
+			'img4': '/static/motorimages/notfound.720.jpg'
+		}
+	# return jsonify(result=mygene)
+	return jsonify(geneinfo)
 
-    return render_template('motor.html', form=form)
+# example from http://flask.pocoo.org/docs/0.10/patterns/jquery/
+@motor.route('/_add_numbers')
+def add_numbers():
+	a = request.args.get('a', 0, type=int)
+	b = request.args.get('b', 0, type=int)
+	return jsonify(result=a + b)
