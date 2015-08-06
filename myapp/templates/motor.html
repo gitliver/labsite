@@ -2,6 +2,14 @@
 
 {% block title %}Topological Data Analysis of In Vitro Motor Neuron Differentiation from mESCs{% endblock %}
 
+<!-- CSS for this specific page -->
+{% block extracss %}
+
+<!-- qTip2 -->
+<link rel="stylesheet" href="/static/jquery.qtip.custom/jquery.qtip.css">
+
+{% endblock %}
+
 <!-- Header -->
 {% block header2 %}
 
@@ -50,7 +58,7 @@
 
 <div class="row">
 
-  <div class="col-md-4">
+  <div class="col-md-8">
 
     <p style="color: black">
     Using the following form, you can color the above topological representation by expression of any gene (red: high values; blue: low values). Several statistics associated to the gene are also displayed. See [1] for more details on the experimental setting, analysis and statistics.
@@ -89,8 +97,8 @@
         <input type=text size=15 name=geneinput>
     </p>
 
-    <br>
-    <a href=# style="color: red" id=getinput>submit</a>
+    <!-- http://stackoverflow.com/questions/710089/how-do-i-make-an-html-link-look-like-a-button -->
+    <a href=# style="font: bold 11px Arial; text-decoration: none; background-color: #EEEEEE; color: red; padding: 2px 6px 2px 6px; border-top: 1px solid #CCCCCC; border-right: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #CCCCCC;" id=getinput>submit</a>
     <br>
     <br>
 
@@ -107,14 +115,104 @@
 
 </div>
 
-<!-- JS writes into this tag -->
-<div id=geneoutput></div>
+<!-- JS inserts into the following tags -->
+
+<div class="row">
+
+  <div class="col-md-4">
+    <div style="margin-left: 50px;" id="startHidden"> 
+     <span id="idgene"></span><br>
+     <span id="idcell"></span><br>
+     <span id="idmean"></span><br>
+     <span id="idmin"></span><br>
+     <span id="idmax"></span><br>
+     <span id="idconn"></span><br>
+     <span id="idpval"></span><br>
+     <span id="idqval"></span><br>
+     <span id="idcent"></span><br>
+     <span id="iddisp"></span><br>
+     <span id="idrna"></span><br>
+     <span id="idsplice"></span><br>
+     <span id="idsurf"></span><br>
+     <span id="idreg"></span><br>
+    </div>
+  </div>
+
+  <div class="col-md-4" id="insertImg1">
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-4" id="insertImg2">
+  </div>
+  <div class="col-md-4" id="insertImg3">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8" id="insertImg4">
+  </div>
+</div>
 
 {% endblock %}
 
 {% block extrajs %}
 
-<script type=text/javascript>
+<script src="/static/jquery.qtip.custom/jquery.qtip.js"></script>
+<script src="/static/js/custom.js"></script>
+
+<script>
+  $(document).ready(function() {
+
+	// hide this to begin with
+	$("#startHidden").hide();
+
+	// html IDs to be written into
+	var myIdArray = ["idgene",
+		    "idcell",
+		    "idmean",
+		    "idmin",
+		    "idmax",
+		    "idconn",
+		    "idpval",
+		    "idqval",
+		    "idcent",
+		    "iddisp",
+		    "idrna",
+		    "idsplice",
+		    "idsurf",
+		    "idreg"];
+
+	// explanation of each field
+	var myTextArray = [ "The gene",
+		      "The number of cells where expression of the gene is detected",
+		      "Mean expression value in log_2(1+TPM) scale",
+		      "Min expression value in log_2(1+TPM) scale",
+		      "Max expression value in log_2(1+TPM) scale",
+		      'Connectivity quantifies how "connected" the expression of the gene appears in the topological graph',
+		      "Statistical significance of the connectivity. Highly significant genes are specific to particular cell populations or stages",
+		      "Statistical significance (FDR) of connectivity after Benjamini-Hochberg adjustment for multiple testing",
+		      "Position (in number of edges units) of the gene expression centroid with respect to the inferred root node (the most stem-like node). High (low) values correspond to genes expressed in post-mitotic (totipotent) cells",
+		      "Dispersion of the centroid (in number of edges units)",
+		      "Whether the gene belongs to gene ontology GO0044822, poly(A) RNA binding",
+		      "Whether the gene belongs to gene ontology GO0008380, RNA splicing",
+		      "Whether the protein encoded by the gene has an extracellular domain, according to InterPro database",
+		      "Whether the gene belongs to gene ontology GO0006355, Regulation of transcription, DNA-templated" ];
+
+	// add qtips to fields
+	for (var i = 0; i < myIdArray.length; i++) {
+		$("#" + myIdArray[i]).qtip({
+		content: myTextArray[i],
+		style: {classes: 'qtip-rounded qtip-bootstrap'}, 
+		// position: { corner: { target: 'topLeft', tooltip: 'leftBottom' } }
+		});
+	}
+
+  });
+</script>
+
+<script>
 
   $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
   // console.log("Testing");
@@ -137,55 +235,49 @@
   */
 
   // need to sanitize input?
-  // this is a bit of a mess! 
+
+   /*
+    docs: 
+    jQuery.getJSON( url [, data ] [, success ] )
+    Description: Load JSON-encoded data from the server using a GET HTTP request.
+    url (Type: String) - A string containing the URL to which the request is sent.
+    data (Type: PlainObject or String) -  A plain object or string that is sent to the server with the request.
+    success (Type: Function( PlainObject data, String textStatus, jqXHR jqXHR ) ) - A callback function that is executed if the request succeeds.
+   */
 
   $(function() {
     $('a#getinput').bind('click', function() {
       $.getJSON($SCRIPT_ROOT + '/_get_gene_result', {
         mygene: $('input[name="geneinput"]').val()
       }, function(data) {
-        $("#geneoutput").html(
-              '<div class="row">' + 
-                '<div class="col-md-4">' + 
-                  '<div style="margin-left: 50px;">' + 
-		    'Gene: <b>' + data.Gene + '</b><br>' + 
-		    'Cells: <b>' + data.Cells + '</b><br>' +
-		    'Mean: <b>' + data.Mean + '</b><br>' +
-		    'Min: <b>' + data.Min + '</b><br>' +
-		    'Max: <b>' + data.Max + '</b><br>' +
-		    'Connectivity: <b>' + data.Connectivity + '</b><br>' + 
-		    '<i>p</i>-value: <b>' + data.p_value + '</b><br>' +
-		    '<i>q</i>-value (BH): <b>' + data.BH_p_value + '</b><br>' + 
-		    'Centroid: <b>' + data.Centroid + '</b><br>' +
-		    'Dispersion: <b>' + data.Dispersion + '</b><br>' +
-		    'RNA binding: <b>' + data.RNA_binding + '</b><br>' +
-		    'Splicing Factor: <b>' + data.Splicing + '</b><br>' +
-		    'Surface Marker: <b>' + data.Surface + '</b><br>' +
-		    'Regulation of Transcription: <b>' + data.Transcription + '</b><br>' + 
-                  '</div>' + 
-                '</div>' + 
-                '<div class="col-md-4">' + 
-                  '<img src="' + data.img1 + '" alt="image" width="400">' + 
-                '</div>' + 
-              '</div>' + 
-              '<div class="row">' + 
-                '<div class="col-md-4">' + 
-    	          '<div style="margin-left: 50px;">Zoom of progenitor region:</div>' + 
-                  '<img src="' + data.img2 + '" alt="image" width="400">' + 
-                '</div>' + 
-                '<div class="col-md-4">' + 
-                  '<div style="margin-left: 50px;">Zoom of post-mitotic region:</div>' + 
-                  '<img src="' + data.img3 + '" alt="image" width="400">' + 
-                '</div>' + 
-              '</div>' + 
-              '<div class="row">' + 
-                '<div class="col-md-8">' + 
-                  '<div style="margin-left: 50px;">Reconstructed expression timeline:</div>' + 
-                  '<img src="' + data.img4 + '" alt="image" width="800">' + 
-                  '<div style="text-align: center;"><small>day</small></div>' + 
-                '</div>' + 
-              '</div>'
-	);
+
+	// show the fields
+	$("#startHidden").show();
+
+        // insert the data from the database into HTML tags
+        $("#idgene").html('Gene: <b>' + data.Gene + '</b>')
+        $("#idcell").html('Cells <b>' + data.Cells + '</b>')
+        $("#idmean").html('Mean: <b>' + data.Mean + '</b>')
+        $("#idmin").html('Min: <b>' + data.Min + '</b>')
+        $("#idmax").html('Max: <b>' + data.Max + '</b>')
+        $("#idconn").html('Connectivity: <b>' + data.Connectivity + '</b>')
+        $("#idpval").html('<i>p</i>-value: <b>' + data.p_value + '</b>')
+        $("#idqval").html('<i>q</i>-value (BH): <b>' + data.BH_p_value + '</b>')
+        $("#idcent").html('Centroid: <b>' + data.Centroid + '</b>')
+        $("#iddisp").html('Dispersion: <b>' + data.Dispersion + '</b>')
+        $("#idrna").html('RNA binding: <b>' + data.RNA_binding + '</b>')
+        $("#idsplice").html('Splicing Factor: <b>' + data.Splicing + '</b>')
+        $("#idsurf").html('Surface Marker: <b>' + data.Surface + '</b>')
+        $("#idreg").html('Regulation of Transcription: <b>' + data.Transcription + '</b>')
+
+        // insert the images into HTML tags
+	$("#insertImg1").html('<img src="' + data.img1 + '" alt="image" width="400">')
+	$("#insertImg2").html('<div style="margin-left: 50px;">Zoom of progenitor region:</div><img src="' + data.img2 + '" alt="image" width="400">')
+	$("#insertImg3").html('<div style="margin-left: 50px;">Zoom of post-mitotic region:</div><img src="' + data.img3 + '" alt="image" width="400">')
+	$("#insertImg4").html('<div style="margin-left: 50px;">Reconstructed expression timeline:</div>' + 
+	  '<img src="' + data.img4 + '" alt="image" width="800">' + 
+	  '<div style="text-align: center;"><small>day</small></div>'
+	)
       });
       return false;
     });

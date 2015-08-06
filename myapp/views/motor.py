@@ -45,7 +45,7 @@ def teardown_request(exception):
 # --- URL routing --- #
 
 # this is using the wtforms machinery and a full page refresh
-# switch instead to AJAX call (see below)
+# comment this out and switch instead to AJAX call (see below)
 if 0:
 	@motor.route('/motor_neurons', methods=['GET', 'POST'])
 	def index():
@@ -62,24 +62,34 @@ if 0:
 			# get motor img path
 			mopath = '/static/motorimages/' + str(form.geneid.data)[0] + '/' + str(form.geneid.data)
 
-			return render_template('motorout.html', geneinfo=geneinfo, mopath=mopath, tmp='asdf')
+			return render_template('motorout.html', geneinfo=geneinfo, mopath=mopath)
 		except:
 			return render_template('error2.html')
 
 	    return render_template('motor.html', form=form)
 
-@motor.route('/motor_neurons', methods=['GET', 'POST'])
+# @motor.route('/motor_neurons', methods=['GET', 'POST'])
+@motor.route('/motor_neurons')
 def index():
-    """motor neuron app built for Pablo"""
+    """motor neuron app built for Pablo - render a form in which a user can submit a gene"""
     form = GeneForm()
 
     return render_template('motor.html', form=form)
 
 @motor.route('/_get_gene_result')
 def get_result():
+	"""JS AJAX calls this function, which queries the database based with a user-submitted gene"""
+
+	# get the user-submitted gene
 	mygene = request.args.get('mygene', "Not Found")
+	# cast the case
+	mygene = mygene[0].upper() + mygene[1:].lower()
 	t=(mygene,)
+
+	# this dict contains info about the gene
 	geneinfo = {}
+
+	# query gene in the database
 	try:
 		# extract info from db
 		cur = g.db.execute('select Gene, Cells, Mean, Min, Max, Connectivity, p_value, BH_p_value, Centroid, Dispersion, RNA_binding, Splicing, Surface, Transcription FROM motor WHERE Gene=?', t)
@@ -110,6 +120,7 @@ def get_result():
 		geneinfo['img4'] = mopath + "/output4.jpg"
 
 	except:
+		# if gene not in database, return this
 		geneinfo = {
 			'Gene': 'not found',
 			'Cells': 'not found',
@@ -130,10 +141,12 @@ def get_result():
 			'img3': '/static/motorimages/notfound.480.jpg',
 			'img4': '/static/motorimages/notfound.720.jpg'
 		}
+
 	# return jsonify(result=mygene)
 	return jsonify(geneinfo)
 
 # example from http://flask.pocoo.org/docs/0.10/patterns/jquery/
+# not actually used in the app - just here to test how AJAX works
 @motor.route('/_add_numbers')
 def add_numbers():
 	a = request.args.get('a', 0, type=int)

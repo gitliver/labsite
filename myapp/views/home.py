@@ -25,6 +25,10 @@ def connect_db():
 
 @home.before_request
 def before_request():
+    """from the docs: Now we know how we can open database connections and use them for scripts, 
+    but how can we elegantly do that for requests?  We will need the database connection 
+    in all our functions so it makes sense to initialize them before each request and shut them down afterwards. 
+    Flask allows us to do that with the before_request(), after_request() and teardown_request() decorators"""
     # without the try/except block, nginx will implode if there's an exception
     try:
         g.db = connect_db()
@@ -33,6 +37,10 @@ def before_request():
 
 @home.teardown_request
 def teardown_request(exception):
+    """from the docs: Now we know how we can open database connections and use them for scripts, 
+    but how can we elegantly do that for requests?  We will need the database connection 
+    in all our functions so it makes sense to initialize them before each request and shut them down afterwards. 
+    Flask allows us to do that with the before_request(), after_request() and teardown_request() decorators"""
     try:
         db = getattr(g, 'db', None)
         if db is not None:
@@ -59,11 +67,13 @@ def get_press():
 
 @home.route('/')
 def index():
+    """funtion to render the homepage"""
     return render_template('home.html')
 
 @home.route('/publications/')
 @home.route('/publications/<int:myyear>')
 def pubs(myyear=0):
+    """funtion to render the publications page"""
     # db query
     entries = get_pubs()
 
@@ -92,6 +102,7 @@ def pubs(myyear=0):
 
 @home.route('/press')
 def press():
+    """funtion to render the press page"""
     # db query
     entries = get_press()
 
@@ -103,6 +114,7 @@ def press():
 @home.route('/people')
 @home.route('/people/<mystatus>')
 def people(mystatus=None):
+    """funtion to render the people page"""
     entries = get_people()
     # data struct is a big list of entry dicts which looks something like this:
     # entries = [{'imagefile': u'raul.jpg', 'name': u'Raul Rabadan', 'iscurrent': 1, 'title': u'Principal Investigator', 'webpage': u'-', 'email': u'rabadan@dbmi.columbia.edu'}, {'imagefile': u'hossein.jpg', 'name': u'Hossein Khiabanian', 'iscurrent': 1, 'title': u'Associate Research Scientists', 'webpage': u'-', 'email': u'hossein@c2b2.columbia.edu'}, {'imagefile': u'jiguang.gif', 'name': u'Jiguang Wang', 'iscurrent': 1, 'title': u'Associate Research Scientists', 'webpage': u'-', 'email': u'-'}, {'imagefile': u'franny.png', 'name': u'Francesco Abate', 'iscurrent': 1, 'title': u'Postdoctoral Researchers', 'webpage': u'-', 'email': u'-'}]
@@ -129,24 +141,30 @@ def people(mystatus=None):
 
 @home.route('/courses')
 def courses():
+    """funtion to render the courses page"""
     return render_template('courses.html')
 
 @home.route('/research')
 def research():
+    """funtion to render the research page"""
     return render_template('research.html')
 
 @home.route('/researchstatement')
 def researchstatement():
+    """funtion to render the research statement page"""
     return render_template('researchstatement.html')
 
 @home.route('/software')
 def softw():
+    """funtion to render the research software page"""
     return render_template('software.html')
 
 @home.route('/contact')
 def contact():
+    """funtion to render the contact page"""
     return render_template('contact.html')
 
 @home.route('/raegyptiacus')
 def bat():
+    """funtion to render the bat page"""
     return render_template('raegyptiacus.html')
