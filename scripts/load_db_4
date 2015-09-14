@@ -5,6 +5,8 @@ import sys
 import re
 import sqlite3
 
+# Load motor neuron data into db
+
 # About: script to load motor data into an sqlite3 db from a text file
 
 conn = sqlite3.connect(sys.argv[1])

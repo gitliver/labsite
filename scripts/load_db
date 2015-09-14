@@ -4,6 +4,8 @@ import sys
 import re
 import sqlite3
 
+# Load people info into db
+
 # About: Into an sqlite3 db, load data from a text file in the format:
 # image.jpg
 # bio ...

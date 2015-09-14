@@ -5,6 +5,8 @@ import sys
 import re
 import sqlite3
 
+# Load publication info into db
+
 # About: hacky script to load publication data into an sqlite3 db from a text file in the format, e.g.:
 
 # Pegasus: a comprehensive annotation and prediction tool for detection of driver gene fusions in cancer.
