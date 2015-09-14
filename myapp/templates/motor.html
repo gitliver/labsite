@@ -27,7 +27,7 @@
   <div class="col-md-4">
 
     <p style="color: black">
-    The directed differentiation of murine embryonic stem cells into motor neurons enables in vitro modeling of neurodegenerative diseases and rational approaches to regenerative therapies. We differentiated murine embryonic stem cells into motor neurons and, using modifications to the CEL-Seq approach, we generated libraries from 440 single cells sampled across days two through six of differentiation<sup>1</sup>. These time points span the transition from totipotency to post-mitotic fate. Single cell RNA-Seq read counts were analyzed using topological methods. Through this webpage you can explore some of the results of this analysis.
+    The directed differentiation of murine embryonic stem cells into motor neurons enables <i>in vitro</i> modeling of neurodegenerative diseases and rational approaches to regenerative therapies. We differentiated murine embryonic stem cells into motor neurons and, using modifications to the CEL-Seq approach, we generated libraries from 440 single cells sampled across days two through six of differentiation<sup>1</sup>. These time points span the transition from totipotency to post-mitotic fate. Single cell RNA-Seq read counts were analyzed using topological methods. Through this webpage you can explore some of the results of this analysis.
     </p>
 
   </div>
@@ -67,7 +67,7 @@
     <br>
 
     <small>
-    <sup>1</sup> <strong class="ocustom-bitter">Unsupervised Detection of Cellular Fate.</strong>
+    <sup>1</sup> <strong class="ocustom-bitter">Applied Topology Informs Cellular Fate at a Single-Cell Level</strong>
     <br>
     Abbas H. Rizvi, Pablo Camara, Elena K. Kandror, Thomas J. Roberts, Tom Maniatis, and Raul Rabadan.
     <br>
@@ -92,7 +92,7 @@
     -->
 
     <p style="color: #336699">
-        <b>Please enter your gene:</b><br>
+        <b>Please enter a gene:</b><br>
     	<small>(Example: <i>Pou5f1</i> or <i>Etv5</i>)</small><br>
         <input type=text size=15 name=geneinput>
     </p>
@@ -119,7 +119,7 @@
 
 <div class="row">
 
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div style="margin-left: 50px;" id="startHidden"> 
      <span id="idgene"></span><br>
      <span id="idcell"></span><br>
@@ -136,6 +136,9 @@
      <span id="idsurf"></span><br>
      <span id="idreg"></span><br>
     </div>
+  </div>
+
+  <div class="col-md-1" id="insertKey">
   </div>
 
   <div class="col-md-4" id="insertImg1">
@@ -163,7 +166,8 @@
 <script src="/static/js/custom.js"></script>
 
 <script>
-  $(document).ready(function() {
+
+$(document).ready(function() {
 
 	// hide this to begin with
 	$("#startHidden").hide();
@@ -209,79 +213,101 @@
 		});
 	}
 
-  });
+});
 </script>
 
 <script>
 
-  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-  // console.log("Testing");
-  // console.log($SCRIPT_ROOT);
+// rather messy and careless Javascript
 
-  // simple addition following the example of Flask with Ajax and Jquery
-  // http://flask.pocoo.org/docs/0.10/patterns/jquery/
-  /*
-  $(function() {
-    $('a#calculate').bind('click', function() {
-      $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
-        a: $('input[name="a"]').val(),
-        b: $('input[name="b"]').val()
-      }, function(data) {
-        $("#result").text(data.result);
-      });
-      return false;
-    });
-  });
-  */
+$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+// console.log("Testing");
+// console.log($SCRIPT_ROOT);
 
-  // need to sanitize input?
+// simple addition following the example of Flask with Ajax and Jquery
+// http://flask.pocoo.org/docs/0.10/patterns/jquery/
+/*
+$(function() {
+	$('a#calculate').bind('click', function() {
+		$.getJSON($SCRIPT_ROOT + '/_add_numbers', {
+			a: $('input[name="a"]').val(),
+			b: $('input[name="b"]').val()
+		}, function(data) {
+			$("#result").text(data.result);
+		});
+		return false;
+	});
+});
+*/
 
-   /*
-    docs: 
-    jQuery.getJSON( url [, data ] [, success ] )
-    Description: Load JSON-encoded data from the server using a GET HTTP request.
-    url (Type: String) - A string containing the URL to which the request is sent.
-    data (Type: PlainObject or String) -  A plain object or string that is sent to the server with the request.
-    success (Type: Function( PlainObject data, String textStatus, jqXHR jqXHR ) ) - A callback function that is executed if the request succeeds.
-   */
+// need to sanitize input?
 
-  $(function() {
-    $('a#getinput').bind('click', function() {
-      $.getJSON($SCRIPT_ROOT + '/_get_gene_result', {
-        mygene: $('input[name="geneinput"]').val()
-      }, function(data) {
+/*
+docs: 
+jQuery.getJSON( url [, data ] [, success ] )
+Description: Load JSON-encoded data from the server using a GET HTTP request.
+url (Type: String) - A string containing the URL to which the request is sent.
+data (Type: PlainObject or String) -  A plain object or string that is sent to the server with the request.
+success (Type: Function( PlainObject data, String textStatus, jqXHR jqXHR ) ) - A callback function that is executed if the request succeeds.
+*/
+function mymain() {
+	$.getJSON($SCRIPT_ROOT + '/_get_gene_result', { mygene: $('input[name="geneinput"]').val() }, function(data) {
 
-	// show the fields
-	$("#startHidden").show();
+		// show the fields
+		$("#startHidden").show();
 
-        // insert the data from the database into HTML tags
-        $("#idgene").html('Gene: <b>' + data.Gene + '</b>')
-        $("#idcell").html('Cells <b>' + data.Cells + '</b>')
-        $("#idmean").html('Mean: <b>' + data.Mean + '</b>')
-        $("#idmin").html('Min: <b>' + data.Min + '</b>')
-        $("#idmax").html('Max: <b>' + data.Max + '</b>')
-        $("#idconn").html('Connectivity: <b>' + data.Connectivity + '</b>')
-        $("#idpval").html('<i>p</i>-value: <b>' + data.p_value + '</b>')
-        $("#idqval").html('<i>q</i>-value (BH): <b>' + data.BH_p_value + '</b>')
-        $("#idcent").html('Centroid: <b>' + data.Centroid + '</b>')
-        $("#iddisp").html('Dispersion: <b>' + data.Dispersion + '</b>')
-        $("#idrna").html('RNA binding: <b>' + data.RNA_binding + '</b>')
-        $("#idsplice").html('Splicing Factor: <b>' + data.Splicing + '</b>')
-        $("#idsurf").html('Surface Marker: <b>' + data.Surface + '</b>')
-        $("#idreg").html('Regulation of Transcription: <b>' + data.Transcription + '</b>')
+		// insert the data from the database into HTML tags
+		$("#idgene").html('Gene: <b>' + data.Gene + '</b>')
+		$("#idcell").html('Cells <b>' + data.Cells + '</b>')
+		$("#idmean").html('Mean: <b>' + data.Mean + '</b>')
+		$("#idmin").html('Min: <b>' + data.Min + '</b>')
+		$("#idmax").html('Max: <b>' + data.Max + '</b>')
+		$("#idconn").html('Connectivity: <b>' + data.Connectivity + '</b>')
+		$("#idpval").html('<i>p</i>-value: <b>' + data.p_value + '</b>')
+		$("#idqval").html('<i>q</i>-value (BH): <b>' + data.BH_p_value + '</b>')
+		$("#idcent").html('Centroid: <b>' + data.Centroid + '</b>')
+		$("#iddisp").html('Dispersion: <b>' + data.Dispersion + '</b>')
+		$("#idrna").html('RNA binding: <b>' + data.RNA_binding + '</b>')
+		$("#idsplice").html('Splicing Factor: <b>' + data.Splicing + '</b>')
+		$("#idsurf").html('Surface Marker: <b>' + data.Surface + '</b>')
+		$("#idreg").html('Regulation of Transcription: <b>' + data.Transcription + '</b>')
+	
+		$("#insertKey").html('<div style="margin-left: 70px;"><br><small>' + parseFloat(data.Max).toPrecision(3) + '</small><br><img style="margin-left: -5px;" src="/static/img/other/scale.80.330.jpg" alt="image" height="220" width="35"><br><small>' + parseFloat(data.Min).toPrecision(3) + '</small></div>')
 
-        // insert the images into HTML tags
-	$("#insertImg1").html('<img src="' + data.img1 + '" alt="image" width="400">')
-	$("#insertImg2").html('<div style="margin-left: 50px;">Zoom of progenitor region:</div><img src="' + data.img2 + '" alt="image" width="400">')
-	$("#insertImg3").html('<div style="margin-left: 50px;">Zoom of post-mitotic region:</div><img src="' + data.img3 + '" alt="image" width="400">')
-	$("#insertImg4").html('<div style="margin-left: 50px;">Reconstructed expression timeline:</div>' + 
-	  '<img src="' + data.img4 + '" alt="image" width="800">' + 
-	  '<div style="text-align: center;"><small>day</small></div>'
-	)
-      });
-      return false;
-    });
-  });
+		// insert the images into HTML tags
+		$("#insertImg1").html('<img src="' + data.img1 + '" alt="image" width="400">')
+		$("#insertImg2").html('<div style="margin-left: 50px;">Zoom of progenitor region:</div><img src="' + data.img2 + '" alt="image" width="400">')
+		$("#insertImg3").html('<div style="margin-left: 50px;">Zoom of post-mitotic region:</div><img src="' + data.img3 + '" alt="image" width="400">')
+		$("#insertImg4").html('<div style="margin-left: 50px;">Reconstructed expression timeline:</div>' + 
+			'<img src="' + data.img4 + '" alt="image" width="800">' + 
+			'<div style="text-align: center;"><small>day</small></div>')
+	});
+	return false;
+}
+
+/*
+function test(){
+	alert("The paragraph was clicked.");
+};
+*/
+
+$(function() {
+
+	// bind mymain() function to either clicking 'submit' button OR pressing enter
+
+	// http://stackoverflow.com/questions/1384037/binding-an-existing-javascript-function-in-jquery
+	// if click 'submit'
+	$('a#getinput').bind("click", mymain);
+
+	// if press enter
+	$('input').keypress(function (e) {
+		var key = e.which;
+		if (key == 13)  // the enter key code
+		{
+			mymain();
+		}
+	});  
+});
 
 </script>
 

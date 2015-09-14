@@ -69,7 +69,7 @@ if 0:
 	    return render_template('motor.html', form=form)
 
 # @motor.route('/motor_neurons', methods=['GET', 'POST'])
-@motor.route('/motor_neurons')
+@motor.route('/motor_neurons_tda')
 def index():
     """motor neuron app built for Pablo - render a form in which a user can submit a gene"""
     form = GeneForm()
