@@ -116,17 +116,27 @@ def press():
 def people(mystatus=None):
     """funtion to render the people page"""
     entries = get_people()
-    # data struct is a big list of entry dicts which looks something like this:
-    # entries = [{'imagefile': u'raul.jpg', 'name': u'Raul Rabadan', 'iscurrent': 1, 'title': u'Principal Investigator', 'webpage': u'-', 'email': u'rabadan@dbmi.columbia.edu'}, {'imagefile': u'hossein.jpg', 'name': u'Hossein Khiabanian', 'iscurrent': 1, 'title': u'Associate Research Scientists', 'webpage': u'-', 'email': u'hossein@c2b2.columbia.edu'}, {'imagefile': u'jiguang.gif', 'name': u'Jiguang Wang', 'iscurrent': 1, 'title': u'Associate Research Scientists', 'webpage': u'-', 'email': u'-'}, {'imagefile': u'franny.png', 'name': u'Francesco Abate', 'iscurrent': 1, 'title': u'Postdoctoral Researchers', 'webpage': u'-', 'email': u'-'}]
+    # data struct is a JSON which looks like:
+    # entries = [ {'imagefile': u'raul.jpg', 'name': u'Raul Rabadan', 'iscurrent': 1, 'title': u'Principal Investigator', 'webpage': u'-', 'email': u'rabadan@dbmi.columbia.edu'}, 
+    # {'imagefile': u'hossein.jpg', 'name': u'Hossein Khiabanian', 'iscurrent': 1, 'title': u'Associate Research Scientists', 'webpage': u'-', 'email': u'hossein@c2b2.columbia.edu'}, 
+    # {'imagefile': u'jiguang.gif', 'name': u'Jiguang Wang', 'iscurrent': 1, 'title': u'Associate Research Scientists', 'webpage': u'-', 'email': u'-'} ]
 
     # list of lists of people dicts, segregated by title
     entries_title = []
 
     # titles of current members
-    titles = ["Principal Investigator", "Associate Research Scientists", "Postdoctoral Researchers", "Doctoral Students", "Staff", "Master's Students", "Undergraduates", "Interns"]
+    titles = [	"Principal Investigator",
+		"Associate Research Scientists",
+		"Postdoctoral Researchers",
+		"Doctoral Students",
+		"Medical Students",
+		"Staff",
+		"Master's Students",
+		"Undergraduates",
+		"Interns" ]
+
     # titles of alumni
-    if (mystatus == "alum"):
-        titles = ["Alumni"]
+    if (mystatus == "alum"): titles = ["Alumni"]
 
     # make data struct 
     for i in titles:
@@ -168,3 +178,8 @@ def contact():
 def bat():
     """funtion to render the bat page"""
     return render_template('raegyptiacus.html')
+
+@home.route('/funding')
+def funding():
+    """funtion to render the funding page"""
+    return render_template('funding.html')
