@@ -19,7 +19,7 @@ from myapp.forms.geneform import GeneForm
 motor = Blueprint('motor', __name__)
 
 # --- db functions --- #
-# slopping violation of DRY principle - fix this later
+# sloppy violation of DRY principle - fix this later
 
 def connect_db():
     """Connects to the specific database."""
@@ -44,31 +44,6 @@ def teardown_request(exception):
 
 # --- URL routing --- #
 
-# this is using the wtforms machinery and a full page refresh
-# comment this out and switch instead to AJAX call (see below)
-if 0:
-	@motor.route('/motor_neurons', methods=['GET', 'POST'])
-	def index():
-	    """motor neuron app built for Pablo"""
-	    form = GeneForm()
-	    if form.validate_on_submit():
-		t=(form.geneid.data,)
-		try:
-			# extract info from db
-			cur = g.db.execute('select Gene, Cells, Mean, Min, Max, Connectivity, p_value, BH_p_value, Centroid, Dispersion, RNA_binding, Splicing, Surface, Transcription FROM motor WHERE Gene=?', t)
-			x = cur.fetchone()
-			geneinfo = {'Gene': x[0], 'Cells': x[1], 'Mean': x[2], 'Min': x[3], 'Max': x[4], 'Connectivity': x[5], 'p_value': x[6], 'BH_p_value': x[7], 'Centroid': x[8], 'Dispersion': x[9], 'RNA_binding': x[10], 'Splicing': x[11], 'Surface': x[12], 'Transcription': x[13]}
-
-			# get motor img path
-			mopath = '/static/motorimages/' + str(form.geneid.data)[0] + '/' + str(form.geneid.data)
-
-			return render_template('motorout.html', geneinfo=geneinfo, mopath=mopath)
-		except:
-			return render_template('error2.html')
-
-	    return render_template('motor.html', form=form)
-
-# @motor.route('/motor_neurons', methods=['GET', 'POST'])
 @motor.route('/motor_neurons_tda')
 def index():
     """motor neuron app built for Pablo - render a form in which a user can submit a gene"""
@@ -82,8 +57,18 @@ def get_result():
 
 	# get the user-submitted gene
 	mygene = request.args.get('mygene', "Not Found")
+	mydb = request.args.get('mydb', "No database selected")
+
+	# map the names of the db variable to table name
+	mynamemap = {'db1': ('motor2304', '/static/motorimages/images_2304/'), 'db2': ('motor', '/static/motorimages/images_440/')}
+
+	# genes that end with the 'Rik' string, have a different treatment
+	if ('rik' == mygene[-3:].lower()): 
+		mygene = mygene[:-3].upper() + 'Rik'
 	# cast the case
-	mygene = mygene[0].upper() + mygene[1:].lower()
+	else:
+		mygene = mygene[0].upper() + mygene[1:].lower()
+
 	t=(mygene,)
 
 	# this dict contains info about the gene
@@ -91,33 +76,34 @@ def get_result():
 
 	# query gene in the database
 	try:
+		# set database 
+		geneinfo['mydb'] = mydb
+
 		# extract info from db
-		cur = g.db.execute('select Gene, Cells, Mean, Min, Max, Connectivity, p_value, BH_p_value, Centroid, Dispersion, RNA_binding, Splicing, Surface, Transcription FROM motor WHERE Gene=?', t)
+		cur = g.db.execute('select Gene, Cells, Mean, Min, Max, Connectivity, p_value, BH_p_value, Centroid, Dispersion, RNA_binding, Splicing, Surface, Transcription FROM ' + mynamemap[mydb][0] + ' WHERE Gene=?', t)
 		x = cur.fetchone()
-		geneinfo = {
-			'Gene': x[0], 
-			'Cells': x[1], 
-			'Mean': x[2], 
-			'Min': x[3], 
-			'Max': x[4], 
-			'Connectivity': x[5], 
-			'p_value': x[6], 
-			'BH_p_value': x[7], 
-			'Centroid': x[8], 
-			'Dispersion': x[9], 
-			'RNA_binding': x[10],
-			'Splicing': x[11], 
-			'Surface': x[12], 
-			'Transcription': x[13]
-		}
+		geneinfo['Gene'] = x[0] 
+		geneinfo['Cells'] = x[1] 
+		geneinfo['Mean'] = x[2] 
+		geneinfo['Min'] = x[3] 
+		geneinfo['Max'] = x[4] 
+		geneinfo['Connectivity'] = x[5] 
+		geneinfo['p_value'] = x[6] 
+		geneinfo['BH_p_value'] = x[7] 
+		geneinfo['Centroid'] = x[8] 
+		geneinfo['Dispersion'] = x[9] 
+		geneinfo['RNA_binding'] = x[10]
+		geneinfo['Splicing'] = x[11] 
+		geneinfo['Surface'] = x[12] 
+		geneinfo['Transcription'] = x[13]
 
 		# get motor img path
-		mopath = '/static/motorimages/' + geneinfo['Gene'][0] + '/' + geneinfo['Gene']
+		mopath = mynamemap[mydb][1] + geneinfo['Gene'][0] + '/' + geneinfo['Gene']
 		# add img paths to geneinfo dict
-		geneinfo['img1'] = mopath + "/output1.jpg"
-		geneinfo['img2'] = mopath + "/output2.jpg"
-		geneinfo['img3'] = mopath + "/output3.jpg"
-		geneinfo['img4'] = mopath + "/output4.jpg"
+		geneinfo['img1'] = mopath + "/output1.png"
+		geneinfo['img2'] = mopath + "/output2.png"
+		geneinfo['img3'] = mopath + "/output3.png"
+		geneinfo['img4'] = mopath + "/output4.png"
 
 	except:
 		# if gene not in database, return this
@@ -144,11 +130,3 @@ def get_result():
 
 	# return jsonify(result=mygene)
 	return jsonify(geneinfo)
-
-# example from http://flask.pocoo.org/docs/0.10/patterns/jquery/
-# not actually used in the app - just here to test how AJAX works
-@motor.route('/_add_numbers')
-def add_numbers():
-	a = request.args.get('a', 0, type=int)
-	b = request.args.get('b', 0, type=int)
-	return jsonify(result=a + b)
