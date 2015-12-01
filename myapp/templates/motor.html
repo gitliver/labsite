@@ -76,8 +76,8 @@
   <div class="col-md-2">
     <p style="color: #336699">
         <b>Please enter a gene:</b><br>
-    	<small>(Example: <i>Pou5f1</i> or <i>Etv5</i>)</small><br>
-        <input type=text size=15 name=geneinput>
+    	<small>(E.g., <i>Pou5f1</i> or <i>Etv5</i>)</small><br>
+        <input type=text size=15 name="geneInput">
     </p>
     <!-- http://stackoverflow.com/questions/710089/how-do-i-make-an-html-link-look-like-a-button -->
     <a href=# style="font: bold 11px Arial; text-decoration: none; background-color: #EEEEEE; color: red; padding: 2px 6px 2px 6px; border-top: 1px solid #CCCCCC; border-right: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #CCCCCC;" id="getInput">submit</a>
@@ -103,37 +103,43 @@
 
 <!-- JS inserts into the following tags -->
 
-<div class="row">
-  <div class="col-md-3">
-    <div style="margin-left: 50px;" id="startHidden"> 
-     <span id="idgene"></span><br>
-     <span id="idcell"></span><br>
-     <span id="idmean"></span><br>
-     <span id="idmin"></span><br>
-     <span id="idmax"></span><br>
-     <span id="idconn"></span><br>
-     <span id="idpval"></span><br>
-     <span id="idqval"></span><br>
-     <span id="idcent"></span><br>
-     <span id="iddisp"></span><br>
-     <span id="idrna"></span><br>
-     <span id="idsplice"></span><br>
-     <span id="idsurf"></span><br>
-     <span id="idreg"></span><br>
+<div class="notFoundAlert" style="color: red;">Sorry, gene not found</div>
+
+<span class="startHidden">
+
+  <div class="row">
+    <div class="col-md-3">
+      <div style="margin-left: 50px;"> 
+       <span id="idgene"></span><br>
+       <span id="idcell"></span><br>
+       <span id="idmean"></span><br>
+       <span id="idmin"></span><br>
+       <span id="idmax"></span><br>
+       <span id="idconn"></span><br>
+       <span id="idpval"></span><br>
+       <span id="idqval"></span><br>
+       <span id="idcent"></span><br>
+       <span id="iddisp"></span><br>
+       <span id="idrna"></span><br>
+       <span id="idsplice"></span><br>
+       <span id="idsurf"></span><br>
+       <span id="idreg"></span><br>
+      </div>
     </div>
+    <div class="col-md-1" id="insertKey"></div>
+    <div class="col-md-4" id="insertImg1"></div>
   </div>
-  <div class="col-md-1" id="insertKey"></div>
-  <div class="col-md-4" id="insertImg1"></div>
-</div>
+  
+  <div class="row">
+    <div class="col-md-4" id="insertImg2"></div>
+    <div class="col-md-4" id="insertImg3"></div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-8" id="insertImg4"></div>
+  </div>
 
-<div class="row">
-  <div class="col-md-4" id="insertImg2"></div>
-  <div class="col-md-4" id="insertImg3"></div>
-</div>
-
-<div class="row">
-  <div class="col-md-8" id="insertImg4"></div>
-</div>
+</span> <!-- start hidden -->
 
 {% endblock %}
 

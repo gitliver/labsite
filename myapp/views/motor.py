@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
 """
-    Lab Website
+    Motor Neuron App
     ~~~~~~
-    A first Flask + sqlite3 project - making a homepage for the lab,
-    borrowing from Armin Ronacher's https://github.com/mitsuhiko/flask/tree/master/examples/flaskr
+    A GUI to browse the results of topological data analysis of in vitro 
+    motor neuron differentiation from mESCs (Mouse Embryonic Stem Cells).
 """
 
 import os
@@ -14,7 +14,7 @@ import traceback
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, Blueprint, jsonify
 from myapp import application
-from myapp.forms.geneform import GeneForm 
+# from myapp.forms.geneform import GeneForm 
 
 motor = Blueprint('motor', __name__)
 
@@ -47,28 +47,30 @@ def teardown_request(exception):
 @motor.route('/motor_neurons_tda')
 def index():
     """motor neuron app built for Pablo - render a form in which a user can submit a gene"""
-    form = GeneForm()
-
-    return render_template('motor.html', form=form)
+    # form = GeneForm()
+    # return render_template('motor.html', form=form)
+    return render_template('motor.html')
 
 @motor.route('/_get_gene_result')
 def get_result():
-	"""JS AJAX calls this function, which queries the database based with a user-submitted gene"""
+	"""JS AJAX calls this function, which queries the database with a user-submitted gene"""
 
 	# get the user-submitted gene
 	mygene = request.args.get('mygene', "Not Found")
 	mydb = request.args.get('mydb', "No database selected")
 
-	# map the names of the db variable to table name
+	# map the names of the database variable to db table name and image folder path
 	mynamemap = {'db1': ('motor2304', '/static/motorimages/images_2304/'), 'db2': ('motor', '/static/motorimages/images_440/')}
 
-	# genes that end with the 'Rik' string, have a different treatment
+	# make the form case insensitive
+	# genes that end with the 'Rik' string, get special treatment
 	if ('rik' == mygene[-3:].lower()): 
 		mygene = mygene[:-3].upper() + 'Rik'
-	# cast the case
+	# cast the case - gene names have uppercase first letter and the rest lowercase (e.g., "Pou5f1")
 	else:
 		mygene = mygene[0].upper() + mygene[1:].lower()
 
+	# gene name tuple
 	t=(mygene,)
 
 	# this dict contains info about the gene
@@ -107,26 +109,6 @@ def get_result():
 
 	except:
 		# if gene not in database, return this
-		geneinfo = {
-			'Gene': 'not found',
-			'Cells': 'not found',
-			'Mean': 'not found',
-			'Min': 'not found',
-			'Max': 'not found',
-			'Connectivity': 'not found',
-			'p_value': 'not found',
-			'BH_p_value': 'not found',
-			'Centroid': 'not found',
-			'Dispersion': 'not found',
-			'RNA_binding': 'not found',
-			'Splicing': 'not found',
-			'Surface': 'not found',
-			'Transcription': 'not found',
-			'img1': '/static/motorimages/notfound.480.jpg',
-			'img2': '/static/motorimages/notfound.480.jpg',
-			'img3': '/static/motorimages/notfound.480.jpg',
-			'img4': '/static/motorimages/notfound.720.jpg'
-		}
+		geneinfo = { 'Gene': 'not found' }
 
-	# return jsonify(result=mygene)
 	return jsonify(geneinfo)
