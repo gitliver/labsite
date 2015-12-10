@@ -5,8 +5,8 @@
 <!-- CSS for this specific page -->
 {% block extracss %}
 
-<!-- qTip2 -->
 <link rel="stylesheet" href="/static/jquery.qtip.custom/jquery.qtip.css">
+<link rel="stylesheet" href="/static/css/jquery-ui.autocomplete.min.css">
 
 {% endblock %}
 
@@ -62,9 +62,9 @@
 <div class="row">
   <div class="col-md-8">
     <small>
-    <sup>1</sup> <strong class="ocustom-bitter">Applied Topology Informs Cellular Fate at a Single-Cell Level</strong>
+    <sup>1</sup> <strong class="ocustom-bitter">Applied Topology Informs Developmental Progression at a Single-Cell Level</strong>
     <br>
-    Abbas H. Rizvi<sup>*</sup>, Pablo Camara<sup>*</sup>, Elena K. Kandror, Thomas J. Roberts, Tom Maniatis, and Raul Rabadan.
+    Abbas H. Rizvi<sup>*</sup>, Pablo Camara<sup>*</sup>, Elena K. Kandror, Thomas J. Roberts, Ira Scheiren, Tom Maniatis, and Raul Rabadan.
     <br>
     2015 <i>In preparation</i>.<br>
     </small>
@@ -146,13 +146,8 @@
 {% block extrajs %}
 
 <script src="/static/jquery.qtip.custom/jquery.qtip.js"></script>
+<script src="/static/js/jquery-ui.autocomplete.min.js"></script>
 <script src="/static/js/custom.js"></script>
 <script src="/static/js/motor.js"></script>
-
-<script>
-  $(document).ready(function() {
-    setUpMotor();
-  });
-</script>
 
 {% endblock %}

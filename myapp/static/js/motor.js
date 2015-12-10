@@ -1,12 +1,8 @@
-function setUpMotor() {
+function addQTips() {
 
-    /* This function hides some tags in the html doc; binds the submit gene 
-     * function to the button; and enables qtips, which explain the fields 
-     * which pop up after the user submits a gene */
-
-    // hide these to begin with
-    $(".startHidden").hide();
-    $(".notFoundAlert").hide();
+    /* This function enables qtips, which explain the fields 
+     * which pop up after the user submits a gene, then mouses
+     * over a property */
 
     // html IDs to be written into
     var myIdArray = ["idgene",
@@ -48,6 +44,12 @@ function setUpMotor() {
         });
     }
 
+}
+
+function bindSubmit() {
+
+    /* This function binds the submit gene function to the submit button */
+
     // bind submitData() function to either clicking 'submit' button OR pressing enter
     // http://stackoverflow.com/questions/1384037/binding-an-existing-javascript-function-in-jquery
     $('a#getInput').bind("click", submitData);
@@ -63,6 +65,20 @@ function setUpMotor() {
 
 }
 
+function getDb() {
+
+    // determine which database table the user queries when he enters the gene
+
+    var whichdb = "db1";
+
+    // if db2 radio button is checked, switch db
+    if ($('#db2').is(":checked")) {
+        whichdb = "db2";
+    }
+
+    return whichdb;
+}
+
 function submitData() {
 
     // This function queries the db with an AJAX call when the user submits a gene
@@ -71,13 +87,8 @@ function submitData() {
     // the URL from which to GET
     myUrl = '/_get_gene_result';
 
-    // determine which database table the user queries when he enters the gene
-    var whichdb = "db1";
-
-    // if db2 radio button is checked, switch db
-    if ($('#db2').is(":checked")) {
-        whichdb = "db2";
-    }
+    // choose db
+    var whichdb = getDb();
 
     // JSON to submit to server
     var data_in = { mygene: $('input[name="geneInput"]').val(),
@@ -128,3 +139,59 @@ function submitData() {
 
     return false;
 }
+
+function motorAutoComp() {
+
+    // This function makes autocomplete active 
+
+    // the URL from which to GET
+    myUrl = '/_motor_autocomplete';
+
+    // choose db
+    var whichdb = getDb();
+
+    $.ajax({
+        url: myUrl,
+        dataType: "json",
+        data: {
+            mydb: whichdb
+        }
+    }).done(function (data) {
+        $('input[name="geneInput"]').autocomplete({
+            source: data.json_list,
+            minLength: 2
+        });
+    });
+
+}
+
+// http://blog.miroslavpopovic.com/2012/06/23/jqueryui-autocomplete-filter-words-starting-with-term/
+// Overrides the default autocomplete filter function to 
+// search only from the beginning of the string
+$.ui.autocomplete.filter = function (array, term) {
+    var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(term), "i");
+    return $.grep(array, function (value) {
+        return matcher.test(value.label || value.value || value);
+    });
+};
+
+// console.log('Testing');
+
+// hide these to begin with
+$(".startHidden").hide();
+$(".notFoundAlert").hide();
+
+// add qTips
+addQTips();
+// enable autocomplete
+motorAutoComp();
+// bind submit function to submit button
+bindSubmit();
+
+// every time the radio button is clicked,
+// the autocomplete function is called to
+// provide entries from the chosen database
+$("input:radio").click(function() {
+    // alert("clicked");
+    motorAutoComp();
+});

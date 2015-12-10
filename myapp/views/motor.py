@@ -112,3 +112,19 @@ def get_result():
 		geneinfo = { 'Gene': 'not found' }
 
 	return jsonify(geneinfo)
+
+@motor.route('/_motor_autocomplete')
+def motor_autocomplete():
+    """autocomplete"""
+    
+    # get the db
+    mydb = request.args.get('mydb', "No database selected")
+
+    # map the names of the database variable to db table name and image folder path
+    mynamemap = {'db1': 'motor2304', 'db2': 'motor'}
+
+    # query the database
+    cur = g.db.execute('select Gene from ' + mynamemap[mydb])
+    genes = [row[0] for row in cur.fetchall()]
+
+    return jsonify(json_list=genes)
