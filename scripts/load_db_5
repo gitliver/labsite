@@ -1,0 +1,40 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import sys
+import re
+import sqlite3
+
+# Load albert rheMac analysis data into db
+
+# About: script to load press data into an sqlite3 db from a text file
+
+conn = sqlite3.connect(sys.argv[1])
+conn.text_factory = str
+c = conn.cursor()
+
+# clear database
+c.execute('DELETE FROM albert_images WHERE id>=1')
+
+counter = 1 
+
+with open(sys.argv[2], "r") as f:
+	for line in f:
+		# if line not empty
+		if (line.strip()):
+
+			line = line.rstrip('\n')
+
+			l = (counter, line)
+
+			c.execute('INSERT INTO albert_images (id, Gene) VALUES (?,?)', l)
+
+			# Save (commit) the changes
+			conn.commit()
+
+			# increment
+			counter += 1
+
+# We can also close the connection if we are done with it.
+# Just be sure any changes have been committed or they will be lost.
+conn.close()
