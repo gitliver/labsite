@@ -7,11 +7,11 @@
     borrowing from Armin Ronacher's https://github.com/mitsuhiko/flask/tree/master/examples/flaskr
 """
 
-# import os
+import os
 # from contextlib import closing
 import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, \
-     render_template, flash, Blueprint
+     render_template, flash, Blueprint, jsonify
 from datetime import date
 from myapp import application
 
@@ -64,6 +64,7 @@ def get_press():
     return [dict(id=row[0], year=row[1], mytext=row[2], journal_url=row[3]) for row in cur.fetchall()]
 
 # --- URL routing --- #
+# --- Core Home Page --- #
 
 @home.route('/')
 def index():
@@ -174,12 +175,51 @@ def contact():
     """funtion to render the contact page"""
     return render_template('contact.html')
 
-@home.route('/raegyptiacus')
-def bat():
-    """funtion to render the bat page"""
-    return render_template('raegyptiacus.html')
-
 @home.route('/funding')
 def funding():
     """funtion to render the funding page"""
     return render_template('funding.html')
+
+# --- Project Specific --- #
+
+# @home.route('/raegyptiacus')
+# def bat():
+#     """funtion to render the bat page"""
+#     return render_template('raegyptiacus.html')
+
+@home.route('/projSSTrheMacMarv')
+def rheMacMarv():
+    """funtion for Albert to display images from his RheMac SST project"""
+    return render_template('rheMacMarv.html')
+
+@home.route('/_get_albert_data')
+def get_albert_data():
+    """JS AJAX calls this function, which returns a file path of img file"""
+
+    # get the user-submitted gene
+    mygene = request.args.get('mygene', "notfound")
+    # path to the images
+    mypath = '/static/albert_rheMac_images/' + mygene.upper() + ".png"
+
+    # get directory where this script resides
+    scripts = os.path.dirname(os.path.realpath(__file__))
+    # check if file exists
+    if not os.path.isfile(scripts + '/..' + mypath): mypath = "notfound"
+
+    # JSON
+    geneinfo = {'img': mypath}
+
+    return jsonify(geneinfo)
+
+@home.route('/_autocomplete')
+def albert_autocomplete():
+    """autocomplete"""
+
+    # get the string in the field to be autocompleted
+    # search = request.args.get('term', 'notfound')
+
+    # query the database
+    cur = g.db.execute('select Gene from albert_images')
+    genes = [row[0] for row in cur.fetchall()]
+
+    return jsonify(json_list=genes)

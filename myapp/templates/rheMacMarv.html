@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}SST RheMac Marv{% endblock %}
+
+<!-- CSS for this specific page -->
+{% block extracss %}
+<link rel="stylesheet" href="/static/css/jquery-ui.autocomplete.min.css">
+{% endblock %}
+
+<!-- Header -->
+{% block header2 %}
+
+<br><br><br><br><br><br>
+<p class="lead" style="color: black"><b>SST RheMac</b></p>
+<br>
+
+{% endblock %}
+
+<!-- Content -->
+{% block content %}
+
+<div class="row">
+  <div class="col-md-4">
+    <p style="color: black">
+    Using the following form, you can retrieve the analysis for a particular gene.
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <p style="color: #336699">
+        <b>Please enter a gene:</b><br>
+    	<small>(E.g., <i>FABP5</i> or <i>ZNF415</i>)</small><br>
+        <input type=text size=15 name="geneInput">
+    </p>
+    <!-- http://stackoverflow.com/questions/710089/how-do-i-make-an-html-link-look-like-a-button -->
+    <a href=# style="font: bold 11px Arial; text-decoration: none; background-color: #EEEEEE; color: red; padding: 2px 6px 2px 6px; border-top: 1px solid #CCCCCC; border-right: 1px solid #333333; border-bottom: 1px solid #333333; border-left: 1px solid #CCCCCC;" id="getInput">submit</a>
+    <br>
+    <br>
+  </div>
+</div>
+
+<!-- JS inserts into the following tags -->
+
+<div class="notFoundAlert" style="color: red;">Sorry, gene not found</div>
+
+<span class="startHidden">
+
+  <div class="row">
+    <div class="col-md-12" id="insertImg"></div>
+  </div>
+
+</span> <!-- start hidden -->
+
+{% endblock %}
+
+{% block extrajs %}
+
+<script src="/static/js/jquery-ui.autocomplete.min.js"></script>
+<script src="/static/js/albert.js"></script>
+
+{% endblock %}
