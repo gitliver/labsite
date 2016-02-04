@@ -27,8 +27,13 @@
       <div class="col-md-10">
  
         <div class="ocustom-membertitle">{{ entry.name }}</div>
-        {% if entry.imagefile != "-" %}
-          <img class="memberimage" src="/static/img/people/{{ entry.imagefile }}" alt="image" width="116">
+	<!-- PI has biggest picture-->
+        {% if entry.title == "Principal Investigator" %}
+          <img class="memberimage" src="/static/img/people/{{ entry.imagefile }}" alt="image" width="175">
+        {% else %}
+          {% if entry.imagefile != "-" %}
+            <img class="memberimage" src="/static/img/people/{{ entry.imagefile }}" alt="image" width="116">
+          {% endif %}
         {% endif %}
   
 	<div class="ocustom-memberbio">{{ entry.bio|safe }}</div>
