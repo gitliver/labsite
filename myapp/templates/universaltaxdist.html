@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}Universal Taxonomic Distributions{% endblock %}
+
+<!-- Header -->
+{% block header2 %}
+
+<br><br><br><br><br><br>
+<p class="lead" style="color: black"><b>Universal Taxonomic Distributions</b></p>
+<br>
+
+{% endblock %}
+
+<!-- Content -->
+{% block content %}
+
+<div class="row">
+  <div class="col-md-4">
+    <p style="color: black">
+    Using the following form, you can ...
+    </p>
+  </div>
+
+  <img src="/universaltaxdist/_generatefig" alt="Image Placeholder" height="100">
+
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <p style="color: #336699">
+        <b>Please enter a gene:</b><br>
+        <input type=text size=15 name="geneInput">
+    </p>
+    <br>
+  </div>
+</div>
+
+{% endblock %}

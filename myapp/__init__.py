@@ -16,9 +16,13 @@ application.config.from_object('myapp.default_settings')
 
 from .views.home import home 
 from .views.motor import motor 
+from .views.universaltaxdist import universaltaxdist
+
 # main website:
 application.register_blueprint(home)
 # motor neuron app:
 application.register_blueprint(motor)
+# universal taxonomic distributions app:
+application.register_blueprint(universaltaxdist)
 
 # import myapp.views
