@@ -7,6 +7,7 @@
 import os
 import sqlite3
 import traceback
+import subprocess
 from flask import Flask, request, session, g, redirect, url_for, abort, \
     render_template, flash, Blueprint, jsonify, send_file
 from myapp import application
@@ -30,25 +31,31 @@ def allowed_file(filename):
 
 # --- URL routing --- #
 
-
 @universaltaxdist.route('/universaltaxdist', methods=['GET', 'POST'])
 def upload_file():
 
-    print('checkpoint 0') 
-
     if request.method == 'POST':
-        print('checkpoint 1') 
+        # print('checkpoint 1') 
         file = request.files['file']
-        print('checkpoint 2') 
+        # print('checkpoint 2') 
         if file and allowed_file(file.filename):
-            print('checkpoint 3') 
+            # print('checkpoint 3') 
             filename = secure_filename(file.filename)
-            print('checkpoint 4') 
+            # print('checkpoint 4') 
 	    filepath = os.path.join(application.config['UPLOAD_FOLDER'], filename)
-	    print('checkpoint path: ' + filepath) 
             file.save(filepath)
-            print('checkpoint 5') 
-            # return redirect('/universaltaxdist/res')
+            # print('checkpoint 5') 
+
+	    # myout = subprocess.check_output('whoami', shell=True)
+            # print(myout) 
+	    # myout = subprocess.check_output('env', shell=True)
+            # print(myout) 
+
+	    # scripts path
+            scripts = os.getcwd() + '/labsite/scripts'
+	    # qsub jobs on the cluster
+	    subprocess.check_output('{}/test_submit_job.sh'.format(scripts), shell=True)
+
             return redirect(url_for('.utax', filename = filename))
 
     return render_template('universaltaxdist.html')
