@@ -30,6 +30,7 @@ def allowed_file(filename):
 
 # --- URL routing --- #
 
+
 @universaltaxdist.route('/universaltaxdist', methods=['GET', 'POST'])
 def upload_file():
 
@@ -47,10 +48,11 @@ def upload_file():
 	    print('checkpoint path: ' + filepath) 
             file.save(filepath)
             print('checkpoint 5') 
-            return redirect('/universaltaxdist/res')
+            # return redirect('/universaltaxdist/res')
+            return redirect(url_for('.utax', filename = filename))
 
     return render_template('universaltaxdist.html')
 
-@universaltaxdist.route('/universaltaxdist/res')
-def utax():
-    return render_template('universaltaxdistres.html')
+@universaltaxdist.route('/universaltaxdist/res/<filename>')
+def utax(filename):
+    return render_template('universaltaxdistres.html', myvar = filename)
