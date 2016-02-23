@@ -15,13 +15,29 @@
 {% block content %}
 
 <div class="row">
-<div class="col-md-2">
-
-    <h4>Success!</h4>
-
-    Your file: {{ myvar }}
+<div class="col-md-8">
+    
+    Your job of ID <b id="jobid">{{ myjid }}</b> has been submitted!
+    <br>
+    <br>
+    <u>Input file</u>: {{ myfile }}
+    <br>
+    <br>
+    <u>Job status</u>: <b id="jobstatus">Please be patient ...</b>
+    <br>
+    <br>
+    <div id="insertImg1"></div>
+    <div id="insertImg2"></div>
+    <div id="insertImg3"></div>
 
 </div>
 </div>
+
+{% endblock %}
+
+<!-- JS for this specific page -->
+{% block extrajs %}
+
+<script src="/static/js/utaxdist.js"></script>
 
 {% endblock %}

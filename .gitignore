@@ -13,3 +13,4 @@ myapp/static/tmp
 myapp/static/motorimages
 myapp/static/*.zip
 myapp/static/favicon.ico
+uploads*
