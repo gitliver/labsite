@@ -4,8 +4,10 @@ function monitorJobs() {
 
     console.log('Testing...');
 
-    // the URL from which to GET
+    // the api URLs from which to GET
+    // qstat status
     myUrl = '/universaltaxdist/qstat/';
+    // file status
     myUrl2 = '/universaltaxdist/files/';
 
     // data input

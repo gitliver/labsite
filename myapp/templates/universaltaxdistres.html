@@ -6,7 +6,9 @@
 {% block header2 %}
 
 <br><br><br><br><br><br>
-<p class="lead" style="color: black"><b>Universal Taxonomic Distributions</b></p>
+<div class="ocustom-smallheader2">
+Universal Taxonomic Distributions <small style="color: grey;"><small><small>BETA</small></small></small>
+</div>
 <br>
 
 {% endblock %}
@@ -15,23 +17,38 @@
 {% block content %}
 
 <div class="row">
-<div class="col-md-8">
-    
-    Your job of ID <b id="jobid">{{ myjid }}</b> has been submitted!
-    <br>
-    <br>
-    <u>Input file</u>: {{ myfile }}
-    <br>
-    <br>
-    <u>Job status</u>: <b id="jobstatus">Please be patient ...</b>
-    <br>
-    <br>
-    <div id="insertImg1"></div>
-    <div id="insertImg2"></div>
-    <div id="insertImg3"></div>
 
-</div>
-</div>
+	<div class="col-md-2"></div>
+	<div class="col-md-4">
+
+		<span class="ocustom-pubjour" style="color: black;">
+		Your job of ID <b id="jobid" style="color: #B40431;">{{ myjid }}</b> has been submitted!
+		<u>Job status</u>: <b id="jobstatus">Please be patient ...</b>
+		</span>
+
+	</div> <!-- column -->
+
+	<div class="col-md-4">
+
+		<span class="ocustom-pubjour" style="color: black;">
+		<u>Input file</u>: {{ myfile }}
+		</span>
+
+	</div> <!-- column -->
+	<div class="col-md-2"></div>
+
+</div> <!-- row -->
+
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<!-- javascript inserts images here: -->
+		<div id="insertImg1"></div>
+		<div id="insertImg2"></div>
+		<div id="insertImg3"></div>
+	</div>
+	<div class="col-md-2"></div>
+</div> <!-- row -->
 
 {% endblock %}
 

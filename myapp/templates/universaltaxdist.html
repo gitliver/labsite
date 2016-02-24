@@ -6,7 +6,9 @@
 {% block header2 %}
 
 <br><br><br><br><br><br>
-<p class="lead" style="color: black"><b>Universal Taxonomic Distributions</b></p>
+<div class="ocustom-smallheader2">
+Universal Taxonomic Distributions <small style="color: grey;"><small><small>BETA</small></small></small>
+</div>
 <br>
 
 {% endblock %}
@@ -15,24 +17,61 @@
 {% block content %}
 
 <div class="row">
-<div class="col-md-8">
 
-    <h4>Upload File</h4>
+	<div class="col-md-2"></div>
+	<div class="col-md-4">
 
-    Please ensure that your file is less than 2 megabytes and that your file has the extension <i>.txt</i> or <i>.dat</i>.
+		<span class="ocustom-pubjour" style="color: black;">
+		The Universal Taxonomic Distributions Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eleifend eros et orci pharetra semper. Proin eget accumsan mauris. Sed in fermentum neque, eget iaculis lectus. Integer interdum diam ut malesuada efficitur. Donec fringilla rhoncus ipsum ultrices accumsan. Donec pharetra pulvinar pulvinar. Proin ac sodales orci, nec sollicitudin tellus.
+		</span>
 
-    <br>
-    <br>
+	</div> <!-- column -->
 
-    <form action="" method=post enctype=multipart/form-data>
-    <p>
-        <input type=file name=file>
-	<br>
-        <input type=submit value=Upload>
-    </p>
-    </form>
+	<div class="col-md-4">
 
-</div>
-</div>
+		<div class="ocustom-pubtitle">
+		Upload a File!
+		</div>
+
+		<div class="ocustom-pubjour2">
+
+		Upload your own data to see ...
+		Please ensure your file is a formatted as a single column of numbers like so:
+
+		<br>
+		<br>
+
+		<div class="ocustom-box1">
+		2.3040e+03<br>
+		1.9680e+03<br>
+		1.4990e+03<br>
+		8.5100e+02<br>
+		8.4800e+02<br>
+		.<br>
+		.<br>
+		.<br>
+		</div>
+
+		<br>
+
+		Your file must have the extension <i>.txt</i> or <i>.dat</i> and be less than 2 megabytes large.
+
+		<br>
+		<br>
+
+		<form action="" method=post enctype=multipart/form-data>
+		<p>
+			<input class="myButton2" type=file name=file>
+			<input style="position: relative; top: 5px;" class="myButton" type=submit value=Submit>
+			<br>
+		</p>
+		</form>
+
+		</div>
+
+	</div> <!-- column -->
+	<div class="col-md-2"></div>
+
+</div> <!-- row -->
 
 {% endblock %}
