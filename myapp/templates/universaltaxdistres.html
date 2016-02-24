@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}Universal Taxonomic Distributions{% endblock %}
+
+<!-- Header -->
+{% block header2 %}
+
+<br><br><br><br><br><br>
+<div class="ocustom-smallheader2">
+Universal Taxonomic Distributions <small style="color: grey;"><small><small>BETA</small></small></small>
+</div>
+<br>
+
+{% endblock %}
+
+<!-- Content -->
+{% block content %}
+
+<div class="row">
+
+	<div class="col-md-2"></div>
+	<div class="col-md-4">
+
+		<span class="ocustom-pubjour" style="color: black;">
+			Your job of ID <b id="jobid" style="color: #B40431;">{{ myjid }}</b> has been submitted!
+			<br>
+		        <u>Input file</u>: {{ myfile }}
+			<br>
+			<u>Job status</u>: <b id="jobstatus" style="color: #336699;">Loading (please be patient...)</b>
+			<span id="jobwheel" style="color: #336699;"></span>
+		</span>
+
+	</div> <!-- column -->
+
+	<div class="col-md-4">
+
+		<span class="ocustom-pubjour2">
+		Note that it may take a couple of minutes to run the computation on our server.
+		Please be patient.
+		</span>
+
+	</div> <!-- column -->
+	<div class="col-md-2"></div>
+
+</div> <!-- row -->
+
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<!-- javascript inserts images here: -->
+		<div id="insertImg1"></div>
+		<div id="insertImg2"></div>
+		<div id="insertImg3"></div>
+	</div>
+	<div class="col-md-2"></div>
+</div> <!-- row -->
+
+{% endblock %}
+
+<!-- JS for this specific page -->
+{% block extrajs %}
+
+<script src="/static/js/utaxdist.js"></script>
+
+{% endblock %}
