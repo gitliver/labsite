@@ -22,16 +22,21 @@ Universal Taxonomic Distributions <small style="color: grey;"><small><small>BETA
 	<div class="col-md-4">
 
 		<span class="ocustom-pubjour" style="color: black;">
-		Your job of ID <b id="jobid" style="color: #B40431;">{{ myjid }}</b> has been submitted!
-		<u>Job status</u>: <b id="jobstatus">Please be patient ...</b>
+			Your job of ID <b id="jobid" style="color: #B40431;">{{ myjid }}</b> has been submitted!
+			<br>
+		        <u>Input file</u>: {{ myfile }}
+			<br>
+			<u>Job status</u>: <b id="jobstatus" style="color: #336699;">Loading (please be patient...)</b>
+			<span id="jobwheel" style="color: #336699;"></span>
 		</span>
 
 	</div> <!-- column -->
 
 	<div class="col-md-4">
 
-		<span class="ocustom-pubjour" style="color: black;">
-		<u>Input file</u>: {{ myfile }}
+		<span class="ocustom-pubjour2">
+		Note that it may take a couple of minutes to run the computation on our server.
+		Please be patient.
 		</span>
 
 	</div> <!-- column -->
