@@ -11,7 +11,6 @@ notes
 myapp/static/img
 myapp/static/tmp
 myapp/static/motorimages
-myapp/static/favicon.ico
 myapp/static/old
 myapp/static/node_modules
 uploads*

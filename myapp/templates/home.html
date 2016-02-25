@@ -5,10 +5,13 @@
 <!-- CSS for this specific page -->
 {% block extracss %}
 
-<!-- qTip2 -->
+<!--
 <link rel="stylesheet" href="/static/jquery.qtip.custom/jquery.qtip.css">
-<!-- Hover -->
 <link rel="stylesheet" href="/static/Hover-master/css/hover.css">
+-->
+
+<link rel="stylesheet" href="/static/vendor/css/jquery.qtip.css">
+<link rel="stylesheet" href="/static/vendor/css/hover.css">
 
 {% endblock %}
 
@@ -86,9 +89,12 @@
 <!-- JS for this specific page -->
 {% block extrajs %}
 
+<!--
 <script src="/static/jquery.qtip.custom/jquery.qtip.js"></script>
 <script src="/static/js/custom.js"></script>
+-->
 
+<!-- Use Qtip Tool tip bubbles -->
 <script>
   $(document).ready(function() {
     useQtips();
