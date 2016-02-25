@@ -44,7 +44,6 @@ function monitorJobs() {
     // dots to print while waiting for queued job
     var dots = '';
 
-
     // query api at intervals
     var timer = setInterval(function(){
         // console.log(myUrl);
