@@ -1,0 +1,400 @@
+.ocustom-navy
+{
+	/* columbia light blue */
+	/*
+	background-color: #66ccff;
+	*/
+
+	/*
+	background-color: #6699cc;
+	*/
+
+	/* columbia dark blue */
+	/*
+	background-color: #006699;
+	*/
+
+	background-color: #336699;
+}
+
+.ocustom-grey
+{
+	/*
+	background-color: #F8F8F8;
+	*/
+	background-color: #F0F0F0;
+	padding: 5px; 
+}
+
+.ocustom-bitter
+{
+	/* fonts from https://www.google.com/fonts/ */
+	font-family: 'Bitter', serif;
+}
+
+.ocustom-droidsans
+{
+	/* fonts from https://www.google.com/fonts/ */
+	font-family: 'Droid Sans', sans-serif;
+}
+
+.ocustom-droidsans-bl
+{
+	/* fonts from https://www.google.com/fonts/ */
+	font-family: 'Droid Sans', sans-serif;
+	color: black;
+}
+
+.ocustom-opensans
+{
+	/* fonts from https://www.google.com/fonts/ */
+	font-family: 'Open Sans', sans-serif;
+}
+
+.ocustom-opensanscond
+{
+	/* fonts from https://www.google.com/fonts/ */
+	font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.ocustom-bigheader
+{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 3em;
+	font-weight: normal;
+	line-height: 1.75em;
+	color: #336699;
+}
+
+.ocustom-smallheader
+{
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 2.5em;
+	font-weight: normal;
+	line-height: 2em;
+	text-align: center;
+	/* deep red */
+	color: #B40431; 
+}
+
+.ocustom-smallheader:hover
+{
+	/* deep red */
+	color: #B40431; 
+}
+
+.ocustom-smallheader2
+{
+	/* font-family: 'Droid Sans', sans-serif; */
+	font-family: 'Bitter', serif;
+	font-size: 2.2em;
+	font-weight: normal;
+	line-height: 2em;
+	text-align: center;
+	/* color: #B40431; */
+	color: black;
+}
+
+.ocustom-smallerheader
+{
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 1.9em;
+	font-weight: normal;
+	line-height: 2em;
+	text-align: center;
+	/* deep red */
+	color: #B40431; 
+}
+
+.ocustom-smallerheader-grey
+{
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 2em;
+	font-weight: normal;
+	line-height: 2em;
+	text-align: center;
+	/* grey */
+	color: #5a5a5a; 
+}
+
+/* front page styles */
+
+.ocustom-frontwelcome
+{
+	font-family: 'Bitter', serif;
+	font-size: 1.5em;
+	font-weight: normal;
+	line-height: 1.8em;
+	color: black !important;
+        background-color: white;
+}
+
+.ocustom-frontblurb
+{
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 1.4em;
+	font-weight: normal;
+	line-height: 1.5em;
+	color: black;
+	background-color: white;
+}
+
+/* publication styles */
+
+.ocustom-pubtitle
+{
+	font-family: 'Bitter', serif;
+	font-size: 1.5em;
+	font-weight: normal;
+	line-height: 1.8em;
+	color: black !important;
+}
+
+.ocustom-pubauth
+{
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 1.3em;
+	font-weight: normal;
+	line-height: 1.5em;
+	color: #5a5a5a; /* grey */
+}
+
+.ocustom-pubjour
+{
+	font-family: 'Bitter', serif;
+	font-size: 1.2em;
+	font-weight: normal;
+	line-height: 2.25em;
+}
+
+.ocustom-pubjour2
+{
+	font-family: 'Bitter', serif;
+	font-size: 1.0em;
+	font-weight: normal;
+	line-height: 2.0em;
+}
+
+/* footer style */
+
+.ocustom-footer
+{
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 1.3em;
+	font-weight: normal;
+	line-height: 1.5em;
+	color: black; 
+}
+
+.ocustom-footer-small
+{
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 1.0em;
+	font-weight: normal;
+	line-height: 1.35em;
+	color: #5a5a5a; /* grey */
+}
+
+/* lab member bio styles */
+
+.memberimage
+{
+	margin: 2px 10px 0px 2px;
+	border: 1px solid rgb(200,200,200);
+	display: inline;
+	float: left;
+}
+
+.ocustom-membertitle
+{
+	font-family: 'Bitter', serif;
+	font-size: 1.5em;
+	font-weight: normal;
+	line-height: 1.8em;
+	color: black !important;
+}
+
+.ocustom-memberbio
+{
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 1.2em;
+	font-weight: normal;
+	line-height: 1.5em;
+	color: #5a5a5a; /* grey */
+}
+
+.ocustom-memberemail
+{
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 1.6em;
+	font-weight: 500;
+	line-height: 1.5em;
+	color: black;
+}
+
+.ocustom-box1
+{
+	width: 250px;
+	margin: 0 auto;
+
+	padding: 9.5px;
+	font-size: 13px;
+	line-height: 1.42857143;
+	color: #333;
+	word-break: break-all;
+	word-wrap: break-word;
+	background-color: #f5f5f5;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+/* research statement */
+
+.image-left-pad
+{
+	margin-top: 10px;
+	margin-left: 10px;
+	border: 2px solid rgb(200,200,200);
+}
+
+.float-right
+{
+	display: inline;
+	float: right;
+}
+
+/* software */
+
+.image-float-left
+{
+	margin: 2px 10px 0px 2px;
+	display: inline;
+	float: left;
+}
+
+.image-float-right
+{
+	margin: 5px;
+	display: inline;
+	float: right;
+}
+
+
+/* http://www.bestcssbuttongenerator.com/ */
+
+.myButton {
+	-moz-box-shadow:inset 4px -5px 6px 4px #ffffff;
+	-webkit-box-shadow:inset 4px -5px 6px 4px #ffffff;
+	box-shadow:inset 4px -5px 6px 4px #ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #f6f6f6));
+	background:-moz-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-webkit-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-o-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-ms-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0);
+	background-color:#ffffff;
+	-moz-border-radius:11px;
+	-webkit-border-radius:11px;
+	border-radius:11px;
+	border:3px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Georgia;
+	/* font-family: 'Roboto Slab', serif; */
+	font-size:12px;
+	font-weight:bold;
+	padding:2px 10px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #ffffff;
+	/* http://stackoverflow.com/questions/20593224/remove-blue-selected-outline-on-buttons */
+	outline: none;
+}
+
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f6f6f6), color-stop(1, #ffffff));
+	background:-moz-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-webkit-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-o-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-ms-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#ffffff',GradientType=0);
+	background-color:#f6f6f6;
+	border-color: #B40431; 
+}
+
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+/* https://css-tricks.com/snippets/css/myButton2-styling-webkitblink/ */
+
+.myButton2 {
+	outline: none;
+}
+
+.myButton2::-webkit-file-upload-button {
+	visibility: hidden;
+}
+
+.myButton2::before {
+	content: 'Upload File'; 
+	display: inline-block;
+	/*
+	background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+	*/
+	-moz-box-shadow:inset 4px -5px 6px 4px #ffffff;
+	-webkit-box-shadow:inset 4px -5px 6px 4px #ffffff;
+	box-shadow:inset 4px -5px 6px 4px #ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #f6f6f6));
+	background:-moz-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-webkit-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-o-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-ms-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0);
+	background-color:#ffffff;
+	-moz-border-radius:11px;
+	-webkit-border-radius:11px;
+	background-color:#ffffff;
+	-moz-border-radius:11px;
+	-webkit-border-radius:11px;
+	border-radius:11px;
+	border:3px solid #dcdcdc;
+	border-radius:11px;
+	border:3px solid #dcdcdc;
+	/*
+	border: 1px solid #999;
+	border-radius: 3px;
+	*/
+	padding: 2px 8px;
+	outline: none;
+	white-space: nowrap;
+	-webkit-user-select: none;
+	cursor: pointer;
+	/*
+	text-shadow: 1px 1px #fff;
+	font-weight: 700;
+	font-size: 10pt;
+	*/
+	font-family:Georgia;
+	font-size:12px;
+	font-weight:bold;
+}
+
+.myButton2:hover::before {
+	/* border-color: black; */
+	/* border-color: #336699; */
+	border-color: #B40431; 
+}
+
+.myButton2:active::before {
+	background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.myButton2:focus::-webkit-file-upload-button {
+	outline: none;
+}
