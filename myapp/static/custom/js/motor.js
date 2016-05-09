@@ -38,11 +38,18 @@ function addQTips() {
 
     // add qtips to fields
     for (var i = 0; i < myIdArray.length; i++) {
+        // console.log('test...' + i);
         $("#" + myIdArray[i]).qtip({
-        content: myTextArray[i],
-        style: {classes: 'qtip-rounded qtip-bootstrap'}, 
+            content: myTextArray[i],
+            style: {classes: 'qtip-rounded qtip-bootstrap'},
         });
     }
+
+    // console.log('test...');
+    // $("#idtest").qtip({
+    //    content: "test",
+    //    style: {classes: 'qtip-rounded qtip-bootstrap'},
+    // });
 
 }
 
@@ -174,8 +181,6 @@ $.ui.autocomplete.filter = function (array, term) {
         return matcher.test(value.label || value.value || value);
     });
 };
-
-console.log('Testing123');
 
 // hide these to begin with
 $(".startHidden").hide();
